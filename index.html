@@ -17,27 +17,30 @@
   https:// URL has to be sitting in the HTML as plain text. A
   relative path like /assets/... is ignored by WhatsApp.
 
-  The value below is the domain Vercel derives from the GitHub repo
-  name. If the deployed site ends up on a different domain - a
-  custom one, or a different Vercel project name - change it in ALL
-  FOUR places it appears (og:url, og:image, og:image:secure_url,
-  twitter:image) and in the canonical link.
+  The domain below MUST be the one the site is actually served from.
+  It was pointing at an older Vercel project name that now 404s, and a
+  preview whose image sits on a dead host simply shows no image - the
+  title and description still appear, so nothing looks broken until
+  you notice the picture never arrives.
+  If the site ever moves - a custom domain, a renamed project - change
+  it in ALL FOUR places it appears (og:url, og:image,
+  og:image:secure_url, twitter:image) and in the canonical link.
   ============================================================ -->
 
-<link rel="canonical" href="https://wedding-invitation-website-premuim-2.vercel.app/">
+<link rel="canonical" href="https://zain-qurrat.vercel.app/">
 
 <meta property="og:type"        content="website">
-<meta property="og:site_name"   content="Zain &amp; Qurrath">
+<meta property="og:site_name"   content="Zain &amp; Qurrat">
 <meta property="og:locale"      content="en_US">
-<meta property="og:url"         content="https://wedding-invitation-website-premuim-2.vercel.app/">
-<meta property="og:title"       content="Zain &amp; Qurrath">
+<meta property="og:url"         content="https://zain-qurrat.vercel.app/">
+<meta property="og:title"       content="Zain &amp; Qurrat">
 <!-- Kept to the two words on purpose. This line is the grey text under the
      title in a WhatsApp preview, and the dates belong inside the invitation,
      not in a chat list. -->
 <meta property="og:description" content="Wedding Invitation">
-<meta property="og:image"       content="https://wedding-invitation-website-premuim-2.vercel.app/assets/images/social-preview.jpg">
+<meta property="og:image"       content="https://zain-qurrat.vercel.app/assets/images/social-preview.jpg">
 <!-- secure_url is what older WhatsApp and Facebook crawlers actually read -->
-<meta property="og:image:secure_url" content="https://wedding-invitation-website-premuim-2.vercel.app/assets/images/social-preview.jpg">
+<meta property="og:image:secure_url" content="https://zain-qurrat.vercel.app/assets/images/social-preview.jpg">
 <meta property="og:image:type"  content="image/jpeg">
 <!-- Declaring the size lets the FIRST person who shares the link see the
      picture. Without it the crawler has to fetch and measure the file before it
@@ -46,13 +49,13 @@
      with one of a different size, change them with it. -->
 <meta property="og:image:width"  content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt"   content="Wedding invitation of Zain and Qurrath">
+<meta property="og:image:alt"   content="Wedding invitation of Zain and Qurrat">
 
 <meta name="twitter:card"        content="summary_large_image">
-<meta name="twitter:title"       content="Zain &amp; Qurrath">
+<meta name="twitter:title"       content="Zain &amp; Qurrat">
 <meta name="twitter:description" content="Wedding Invitation">
-<meta name="twitter:image"       content="https://wedding-invitation-website-premuim-2.vercel.app/assets/images/social-preview.jpg">
-<meta name="twitter:image:alt"   content="Wedding invitation of Zain and Qurrath">
+<meta name="twitter:image"       content="https://zain-qurrat.vercel.app/assets/images/social-preview.jpg">
+<meta name="twitter:image:alt"   content="Wedding invitation of Zain and Qurrat">
 
 <!-- ============================================================
   SITE ICON - the ZQ monogram
