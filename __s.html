@@ -1,0 +1,2189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Qurrat &amp; Zain &mdash; Wedding Invitation</title>
+<meta name="description" content="With the blessings of Allah, we invite you to celebrate our Nikah and Valima.">
+
+<!-- ============================================================
+  WEDDING INVITATION - Qurrat & Zain
+  Palette + typography matched to reference recording.
+  Corner florals are inline SVG; the hero crown and the chandelier are
+  cut-out PNGs in assets/images (drawn SVG versions of both are kept in
+  the art library / commented out in the hero, ready to swap back).
+  ------------------------------------------------------------
+  All names, dates, venues and copy live in the CONFIG block near
+  the bottom of this file. Nothing else needs editing.
+
+  Assets (the page still works if the missing ones stay missing):
+    assets/audio/nasheed.mp3   background nasheed  [present]
+    assets/videos/opening.mp4  intro video         [present]
+    assets/images/chandelier.png   hero chandelier  [present]
+    assets/images/floral-crown.png hero top border  [present]
+    assets/images/nikah.jpg    Nikah venue photo   (replaces sketch)
+    assets/images/valima.jpg   Valima venue photo  (replaces sketch)
+
+  The nasheed is "Wedding Nasheed - Muhammad Al Muqit (Slowed Reverb)",
+  renamed to nasheed.mp3 so the URL needs no escaping.
+  ============================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --cream:#E1D9C4;        /* page ground */
+  --cream-soft:#EAE3D0;   /* envelope / cards */
+  --maroon:#45100A;       /* primary text */
+  --maroon-soft:#5C2117;  /* secondary text */
+  --burgundy:#530D13;     /* button fill / wax seal */
+  --crimson:#66000C;      /* rose accent: hashtag, venue hint */
+  --gold:#DFBE8C;         /* gold accents */
+  --gold-light:#F3DFB6;   /* gold script */
+  --blush:#E5A79F;        /* floating hearts */
+  --tan:#B49B7F;          /* frames, map sketch */
+
+  /* These used to be hex literals buried in the rules below. They are named
+     here because each one has to change for the dark theme, and a value that
+     only exists inside a rule cannot be re-themed without editing the rule. */
+  --page-edge:#191210;    /* the strip either side of the 480px page */
+  --btn-ink:#EFE4D2;      /* text on a filled button; the round buttons' ground */
+  --btn-hover:#3E090E;
+  --ghost-hover:rgba(83,13,19,.08);
+  --coin-hi:#F1E7D2;      /* highlight in the scratch-coin face */
+  --panel-hi:#7C0A18;     /* save-the-date panel, centre of the gradient */
+  --panel:#66000C;        /* save-the-date panel, edge */
+  --art-rose:#66000C;     /* medallion + footer flowers (inline SVG) */
+  --shadow:rgba(69,16,10,.25);
+  /* the band of light that travels across the two names in the hero. It is a
+     rich gold here because the names are near-black on cream; the dark theme
+     restates it, where the names are cream and the sheen has to go brighter
+     rather than darker to read at all. */
+  --name-sheen:#D9A94A;
+  /* the halo the heart between the names throws on each beat. On cream a rose
+     bloom reads as warmth around near-black ink; the dark theme lifts it, where
+     the heart is cream and the halo has to glow rather than shade. */
+  --heart-glow:rgba(163,32,36,.5);
+  --heart-glow-soft:rgba(229,167,159,.55);
+
+  /* The cover is the intro video, which is the same cream-and-wax footage in
+     either theme, so these two are deliberately NOT restated in the dark block
+     below - they belong to the video, not to the page. */
+  --cover-ink:#530D13;    /* "tap to open" letters, skip pill */
+  --cover-btn:rgba(234,227,208,.82);
+  /* Same reasoning for the round buttons: their ground stays a light cream in
+     BOTH themes, so the muted ink of a paused button is a fixed dark tone. Wire
+     it to --maroon-soft and the dark theme paints ivory-on-cream. */
+  --btn-ink-dim:#7A4A44;
+
+  --serif:'Cormorant Garamond', serif;
+  --sans:'Montserrat', sans-serif;
+  --script:'Great Vibes', cursive;
+  --arabic:'Amiri', serif;
+
+  /* tells the browser to draw scrollbars and form controls to match */
+  color-scheme:light;
+}
+
+/* ---------- dark theme ----------
+   Only the palette is restated; not one layout or type rule is duplicated,
+   which is the whole reason the colours live in variables. data-theme is set
+   on <html> by the inline script in <head>, so the right palette is in place
+   before the first paint and the page never flashes cream then goes dark.
+
+   The dark ground is a warm near-black rather than grey - the peonies and the
+   chandelier are deep red and gold, and they sit on warm black the way they
+   sit on cream. On true grey they read as if they were cut out and pasted. */
+:root[data-theme="dark"]{
+  --cream:#141010;
+  --cream-soft:#1F1917;
+  --maroon:#F1E6D2;       /* the ink and the ground simply trade places */
+  --maroon-soft:#C6B296;
+  --burgundy:#8C1A24;     /* lifted: #530D13 on near-black is a dark smudge */
+  --crimson:#E3A6A0;      /* the rose accent is TEXT, so on dark it goes light */
+  --gold:#E8CB9C;
+  --gold-light:#F7E7C4;
+  --blush:#C9827B;
+  --tan:#9C8567;
+  --page-edge:#0B0808;
+  --btn-ink:#F7ECD8;
+  --btn-hover:#A32330;
+  --ghost-hover:rgba(241,230,210,.10);
+  --coin-hi:#312622;
+  --panel-hi:#8A0D1B;     /* the wax-red panel stays wax-red in both themes - */
+  --panel:#54000A;        /* gold script on deep red needs no dark variant    */
+  --art-rose:#D98A84;
+  --shadow:rgba(0,0,0,.55);
+  /* The dark theme cannot use a PALER sheen: the names are already cream, so
+     brightness alone leaves nothing to see. It reads through saturation
+     instead - a true gold crossing desaturated ivory. */
+  --name-sheen:#EFB944;
+  --heart-glow:rgba(233,150,143,.75);
+  --heart-glow-soft:rgba(201,130,123,.42);
+
+  /* the calendar rings: gold on the dark card, maroon on the cream one */
+  --cal-accent:var(--gold);
+  --cal-ring:rgba(232,203,156,.55);
+  --cal-pulse:rgba(232,203,156,.40);
+
+  color-scheme:dark;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);font-weight:300;
+  color:var(--maroon);background:var(--page-edge);line-height:1.8;
+}
+.page{
+  max-width:480px;margin:0 auto;background:var(--cream);
+  min-height:100vh;box-shadow:0 0 70px rgba(0,0,0,.55);
+  overflow-x:hidden;position:relative;
+}
+
+/* ---------- shared ---------- */
+section{padding:96px 30px;position:relative;text-align:center}
+.title-italic{
+  font-family:var(--serif);font-style:italic;font-weight:500;
+  font-size:40px;color:var(--maroon);letter-spacing:.02em;line-height:1.2;
+}
+.caps{
+  font-family:var(--sans);font-weight:400;
+  font-size:11px;letter-spacing:.35em;text-transform:uppercase;
+  color:var(--maroon-soft);line-height:2.3;
+}
+.fade{opacity:0;transform:translateY(26px);transition:opacity .9s ease,transform .9s ease}
+.fade.in{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){
+  .fade{opacity:1;transform:none;transition:none}
+  html{scroll-behavior:auto}
+  *{animation:none !important}
+}
+
+/* ---------- floral clusters (inline SVG art) ---------- */
+.fl{position:absolute;pointer-events:none;z-index:3}
+.fl use{transform-origin:center}
+
+/* ---------- floating hearts ---------- */
+.heart{
+  position:fixed;bottom:-30px;z-index:6;pointer-events:none;
+  font-size:18px;color:var(--blush);opacity:0;
+}
+body.opened .heart{animation:floatUp linear infinite}
+@keyframes floatUp{
+  0%{transform:translateY(0) rotate(0);opacity:0}
+  12%{opacity:.75}
+  100%{transform:translateY(-105vh) rotate(28deg);opacity:0}
+}
+
+/* ---------- landing overlay: the intro video IS the cover ---------- */
+#overlay{
+  position:fixed;inset:0;z-index:50;background:#191210;
+  display:flex;justify-content:center;
+  transition:opacity 1.1s ease, visibility 1.1s;
+}
+#overlay.hidden{opacity:0;visibility:hidden}
+.cover{
+  position:relative;width:min(480px,100%);height:100%;
+  background:#191210;overflow:hidden;cursor:pointer;
+}
+/* the video layer is the cover from the first paint - there is no drawn
+   stand-in behind it, so a slow or missing file just leaves the dark
+   ground and the tap label rather than a second, fake cover */
+.cover-video{position:absolute;inset:0;z-index:8;display:block;background:#191210;overflow:hidden}
+/* opening.mp4 is 1080x1920 with a 47px/48px black letterbox baked into the
+   file, so object-fit alone still shows bars. 1920/1825 = 1.053 is the exact
+   zoom that pushes them out of frame; 1.06 leaves a little margin. */
+.cover-video video{
+  width:100%;height:100%;object-fit:cover;display:block;
+  transform:scale(1.06);
+}
+/* ---------- "tap to open" label ----------
+   It has to land in the gap between the painted flourish and the wax seal
+   on the video's first frame, so it is placed as a share of the frame
+   height rather than pinned to the middle of the screen. The text is long,
+   so it also has to shrink on narrow phones rather than run off the edge. */
+.video-label{
+  position:absolute;left:0;right:0;top:45%;z-index:9;
+  text-align:center;padding:0 16px;
+  pointer-events:none;transition:opacity .4s;
+  font-family:var(--sans);font-weight:600;line-height:1;
+  font-size:clamp(8.5px,2.7vw,11px);
+  letter-spacing:clamp(.18em,1vw,.4em);
+  text-indent:clamp(.18em,1vw,.4em);
+  text-transform:uppercase;
+}
+/* Burgundy letters read on the cream envelope where plain gold washed out.
+   A gold highlight travels across them (shimmer) while the halo around them
+   swells and fades (glow) - together the line looks lit rather than printed.
+   Both run on the inner span so the .playing fade can stop them at once.
+
+   --cover-ink, not --burgundy: this line sits on the cream envelope in the
+   video's first frame, and that frame is the same file in either theme. Colours
+   tuned to the video must not follow the page. */
+.video-label span{
+  display:inline-block;
+  background:linear-gradient(100deg,
+    var(--cover-ink) 0%, var(--cover-ink) 40%,
+    #C08A2E 46%, var(--gold-light) 50%, #C08A2E 54%,
+    var(--cover-ink) 60%, var(--cover-ink) 100%);
+  background-size:300% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
+  animation:labelShimmer 3.6s linear infinite,
+            labelGlow 2.6s ease-in-out infinite;
+}
+@keyframes labelShimmer{
+  0%{background-position:100% 0}
+  100%{background-position:-100% 0}
+}
+/* drop-shadow rather than text-shadow: it follows the glyph alpha, which is
+   what survives background-clip:text */
+@keyframes labelGlow{
+  0%,100%{
+    filter:drop-shadow(0 0 3px rgba(243,223,182,.55))
+           drop-shadow(0 1px 7px rgba(120,20,30,.25));
+    transform:scale(1);
+  }
+  50%{
+    filter:drop-shadow(0 0 9px rgba(243,223,182,1))
+           drop-shadow(0 1px 15px rgba(201,140,46,.6));
+    transform:scale(1.045);
+  }
+}
+.cover-video.playing .video-label{opacity:0}
+.cover-video.playing .video-label span{animation:none}
+/* skip the intro video - also pinned: it is a cream pill on the video, so dark
+   ink stays dark ink here even when the page ink has gone ivory */
+#skipBtn{
+  position:absolute;right:18px;bottom:20px;z-index:9;
+  background:var(--cover-btn);border:1px solid #B49B7F;
+  color:var(--cover-ink);cursor:pointer;border-radius:20px;
+  padding:9px 18px;font-family:var(--sans);font-weight:400;font-size:10.5px;
+  letter-spacing:.3em;text-indent:.3em;text-transform:uppercase;
+  opacity:0;visibility:hidden;transition:opacity .4s;
+}
+.cover-video.playing #skipBtn{opacity:1;visibility:visible}
+#skipBtn:focus-visible{outline:2px solid var(--burgundy);outline-offset:3px}
+
+/* ---------- floating round buttons: music + theme ---------- */
+#musicBtn,#themeBtn{
+  position:fixed;right:16px;z-index:40;
+  width:46px;height:46px;border-radius:50%;border:none;
+  background:var(--btn-ink);color:var(--burgundy);cursor:pointer;
+  display:none;align-items:center;justify-content:center;
+  box-shadow:0 4px 14px rgba(0,0,0,.3);
+  transition:background .3s, color .3s;
+}
+#musicBtn{bottom:16px}
+#themeBtn{bottom:70px}          /* stacked above the music button */
+#musicBtn.show,#themeBtn.show{display:flex}
+#musicBtn svg,#themeBtn svg{width:20px;height:20px}
+#musicBtn:focus-visible,#themeBtn:focus-visible{outline:2px solid var(--burgundy);outline-offset:3px}
+#musicBtn.playing svg{animation:sway 1.6s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(8deg)}}
+/* Paused has to be visible at a glance. The sway alone cannot carry that: it
+   stops for reduced-motion users, and a still note looks identical either way.
+   So the paused button also crosses the note out and drops to the quieter ink -
+   the same thing every media player does. */
+#musicBtn .mute-slash{opacity:0;transition:opacity .25s}
+#musicBtn:not(.playing) .mute-slash{opacity:1}
+#musicBtn:not(.playing){color:var(--btn-ink-dim)}
+/* Show the theme you would GET, not the one you are in: a moon while the page
+   is cream, a sun while it is dark. */
+#themeBtn .i-sun{display:none}
+:root[data-theme="dark"] #themeBtn .i-sun{display:block}
+:root[data-theme="dark"] #themeBtn .i-moon{display:none}
+
+/* ---------- hero ---------- */
+#hero{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;padding-top:250px;
+}
+/* ---------- floral crown across the top of the hero ----------
+   A background-removed row of dark burgundy blooms, hung from the top edge
+   as a border. z-index 1 keeps it BEHIND the chandelier (z-index 2), so the
+   light hangs in front of the flowers rather than being buried by them.
+   Most of the source PNG below the blooms is transparent, so the element is
+   far taller than the flowers appear - harmless, since it takes no pointer
+   events, and it is what lets the petals end on their own ragged edge. */
+.hero-crown{
+  position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:104%;               /* slight bleed so the flowers reach both edges */
+  z-index:1;pointer-events:none;user-select:none;
+}
+.hero-crown img{width:100%;height:auto;display:block}
+/* Swaying chandelier light. Sized by width only so the photo keeps its own
+   proportions; transform-origin sits at the very top so the sway pivots from
+   the rope rather than the middle of the crystals. Works for either the photo
+   or the drawn SVG version. */
+.chandelier{
+  position:absolute;top:-4px;left:50%;width:216px;height:auto;
+  margin-left:-108px;z-index:2;
+  transform-origin:50% 0;
+  animation:pendulum 4.6s ease-in-out infinite;
+  filter:drop-shadow(0 10px 18px rgba(102,0,12,.28));
+  pointer-events:none;user-select:none;
+}
+svg.chandelier{height:250px}   /* the drawn version needs an explicit height */
+@keyframes pendulum{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+.hero-frame{
+  position:absolute;inset:64px 22px 40px;
+  border:1px solid var(--tan);
+  border-radius:180px 180px 0 0;
+  opacity:.65;pointer-events:none;
+}
+.hero-frame::before{
+  content:'';position:absolute;inset:8px;
+  border:1px solid rgba(180,155,127,.5);
+  border-radius:172px 172px 0 0;
+}
+#hero .fl{width:165px;height:165px}
+#hero .fl.tl{top:-10px;left:-10px}
+#hero .fl.tr{top:-10px;right:-10px;transform:scaleX(-1)}
+#hero .fl.bl{bottom:-14px;left:-14px;transform:scaleY(-1);width:130px;height:130px;opacity:.95}
+#hero .fl.br{bottom:-14px;right:-14px;transform:scale(-1,-1);width:130px;height:130px;opacity:.95}
+.hero-names{
+  font-family:var(--serif);font-weight:500;
+  font-size:42px;letter-spacing:.14em;text-indent:.14em;
+  color:var(--maroon);line-height:1.35;margin:26px 0;position:relative;z-index:4;
+}
+/* ---------- the heart between the names beats ----------
+   Two beats close together and then a long rest, which is what separates a
+   pulse from a throb: a quick swell, a partial recoil, a smaller second
+   swell, then stillness for well over half the cycle. The glow rides the
+   same curve, so the heart reads as lit from within rather than resized. */
+.hero-heart{
+  display:block;font-size:22px;color:var(--maroon);font-weight:400;margin:8px 0;
+  position:relative;will-change:transform;
+  animation:heartbeat 2.4s ease-in-out infinite;
+}
+@keyframes heartbeat{
+  0%,100%{transform:scale(1);    text-shadow:0 0 6px var(--heart-glow-soft)}
+  8%     {transform:scale(1.26); text-shadow:0 0 16px var(--heart-glow), 0 0 30px var(--heart-glow-soft)}
+  16%    {transform:scale(1.02); text-shadow:0 0 8px var(--heart-glow-soft)}
+  25%    {transform:scale(1.16); text-shadow:0 0 13px var(--heart-glow)}
+  38%    {transform:scale(1);    text-shadow:0 0 6px var(--heart-glow-soft)}
+}
+/* a ring of light leaving the heart on the first beat and fading out well
+   before the next one, so the rest between beats stays genuinely still */
+.hero-heart::after{
+  content:'';position:absolute;left:50%;top:50%;
+  width:26px;height:26px;margin:-13px 0 0 -13px;
+  border-radius:50%;border:1px solid var(--heart-glow);
+  opacity:0;pointer-events:none;
+  animation:heart-ring 2.4s ease-out infinite;
+}
+@keyframes heart-ring{
+  0%     {transform:scale(.55);opacity:0}
+  10%    {opacity:.6}
+  50%,100%{transform:scale(2.7);opacity:0}
+}
+
+/* ---------- the names catch the light ----------
+   A band of gold travels across the two names and then rests. The letters
+   themselves never move: the gradient is clipped to the glyphs and only its
+   background-position animates, so there is no reflow and nothing to jitter.
+
+   Guarded by @supports because the effect needs color:transparent to show the
+   gradient through the letters - without background-clip:text that rule alone
+   would render the names invisible. */
+@supports ((background-clip:text) or (-webkit-background-clip:text)){
+  .hero-names{
+    /* The band is deliberately wide - roughly 40% of the box. A narrow one
+       lights two or three letters at a time and, on a name this short, reads
+       as a flicker rather than as light passing over it. */
+    background-image:linear-gradient(100deg,
+      var(--maroon)     0,   var(--maroon)     30%,
+      var(--name-sheen) 50%,
+      var(--maroon)     70%, var(--maroon)     100%);
+    background-repeat:no-repeat;
+    /* the image is 3x the box, so the sheen (at its centre) is off-screen at
+       both 0% and 100% and only crosses the names in between */
+    background-size:300% 100%;
+    background-position:100% 0;
+    -webkit-background-clip:text;
+            background-clip:text;
+    color:transparent;
+    animation:name-sheen 6.5s ease-in-out 1.4s infinite;
+  }
+  /* the heart sets its own colour, so it stays solid and only the NAMES light
+     up - which is the point */
+  .hero-names .hero-heart{color:var(--maroon)}
+}
+/* Travels for the first 55%, then holds. The hold is what stops it reading as
+   a loading shimmer: it is a glint, not a barber's pole. Start and end both
+   park the sheen off the glyphs, so the loop restarts invisibly - and so a
+   reduced-motion render (which drops the animation) shows plain ink. */
+@keyframes name-sheen{
+  0%  {background-position:100% 0}
+  55% {background-position:0 0}
+  100%{background-position:0 0}
+}
+#hero .caps,.scroll-cue{position:relative;z-index:4}
+.scroll-cue{margin-top:60px}
+.scroll-pill{
+  width:24px;height:40px;border:1.5px solid var(--maroon);
+  border-radius:14px;margin:0 auto 12px;position:relative;
+}
+.scroll-pill::after{
+  content:'';position:absolute;left:50%;top:7px;
+  width:4px;height:8px;border-radius:3px;background:var(--maroon);
+  transform:translateX(-50%);
+  animation:scrollDot 1.8s ease-in-out infinite;
+}
+@keyframes scrollDot{0%{top:7px;opacity:1}70%{top:22px;opacity:.2}100%{top:7px;opacity:0}}
+.scroll-label{font-size:10px;letter-spacing:.4em;text-transform:uppercase;text-indent:.4em;color:var(--maroon)}
+
+/* ---------- bismillah ---------- */
+.bismillah-ar{
+  font-family:var(--arabic);font-size:30px;color:var(--maroon);
+  line-height:2;direction:rtl;font-weight:700;
+}
+.invite-copy{margin-top:40px}
+.invite-copy .caps{font-size:11px}
+.invite-name{
+  display:block;font-family:var(--sans);font-weight:600;
+  font-size:14px;letter-spacing:.34em;text-transform:uppercase;
+  text-indent:.34em;color:var(--maroon);margin:18px 0 4px;
+}
+.medallion{margin:56px auto 0;display:block;width:52px;height:52px}
+
+/* ---------- scratch coins + save the date ---------- */
+#date{padding-top:120px}
+.coins{display:flex;justify-content:center;gap:14px;margin-top:40px}
+.coin{
+  position:relative;width:78px;height:78px;border-radius:50%;
+  box-shadow:0 4px 10px var(--shadow);overflow:hidden;flex:none;
+}
+.coin-under{
+  position:absolute;inset:0;border-radius:50%;
+  background:radial-gradient(circle at 40% 32%, var(--coin-hi), var(--cream-soft) 70%);
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--tan);
+}
+.coin-under svg{width:32px;height:32px}
+.coin canvas{
+  position:absolute;inset:0;width:100%;height:100%;
+  touch-action:none;cursor:pointer;border-radius:50%;
+  transition:opacity .7s ease;
+}
+.coin canvas.done{opacity:0;pointer-events:none}
+
+/* the big round seal that hides the date */
+.coin-seal{width:min(258px,72vw);height:min(258px,72vw);overflow:visible}
+
+/* ---------- popper: confetti + a pop of the seal itself ----------
+   The confetti is painted on one full-screen canvas (created in JS);
+   the two rules below are the little flourish on the seal itself. */
+#confetti{position:fixed;inset:0;z-index:45;pointer-events:none}
+.coin-seal.popped .coin-under{animation:sealPop .8s cubic-bezier(.2,1.5,.35,1)}
+@keyframes sealPop{
+  0%{transform:scale(.86)}
+  40%{transform:scale(1.07)}
+  70%{transform:scale(.98)}
+  100%{transform:scale(1)}
+}
+/* a gold ring racing outward, as if the seal burst open */
+.coin-seal::after{
+  content:'';position:absolute;inset:0;border-radius:50%;
+  border:2px solid var(--gold);opacity:0;pointer-events:none;
+}
+.coin-seal.popped::after{animation:sealRing .95s ease-out}
+@keyframes sealRing{
+  0%{opacity:.9;transform:scale(1)}
+  100%{opacity:0;transform:scale(1.75)}
+}
+.coin-seal .coin-under{flex-direction:column;gap:10px;padding:0 26px}
+.coin-label{
+  font-family:var(--sans);font-weight:400;font-size:9.5px;
+  letter-spacing:.4em;text-transform:uppercase;text-indent:.4em;color:var(--maroon-soft);
+}
+.coin-date{
+  font-family:var(--serif);font-weight:600;font-size:20px;
+  letter-spacing:.03em;color:var(--maroon);line-height:1.5;max-width:190px;
+}
+
+.std-wrap{margin:88px auto 0;width:min(280px,78vw);position:relative}
+.std-panel{
+  background:radial-gradient(circle at 50% 28%, var(--panel-hi), var(--panel) 65%);
+  border-radius:50% 50% 50% 50% / 34% 34% 34% 34%;
+  padding:58px 30px 52px;position:relative;
+  box-shadow:0 16px 40px rgba(69,16,10,.3);
+}
+.std-panel::before{
+  content:'';position:absolute;inset:9px;border-radius:inherit;
+  border:1px solid rgba(223,190,140,.55);
+}
+.std-panel::after{
+  content:'';position:absolute;inset:15px;border-radius:inherit;
+  border:1px dashed rgba(223,190,140,.35);
+}
+.std-script{
+  font-family:var(--script);font-size:44px;line-height:1.1;
+  color:var(--gold-light);text-shadow:0 1px 6px rgba(0,0,0,.35);
+}
+.std-date{
+  font-family:var(--serif);font-weight:600;font-size:24px;
+  letter-spacing:.14em;text-indent:.14em;color:var(--gold);margin-top:16px;
+}
+.std-day{
+  font-size:9.5px;letter-spacing:.42em;text-transform:uppercase;
+  text-indent:.42em;color:var(--gold);margin-top:6px;font-weight:400;
+}
+#date::before{
+  content:'';position:absolute;inset:auto 0 0 0;height:520px;opacity:.5;
+  background-image:
+    radial-gradient(3px 5px at 12% 20%, var(--tan) 98%, transparent),
+    radial-gradient(2px 4px at 30% 65%, #C4A98A 98%, transparent),
+    radial-gradient(3px 4px at 52% 38%, var(--tan) 98%, transparent),
+    radial-gradient(2px 5px at 70% 74%, #C4A98A 98%, transparent),
+    radial-gradient(3px 4px at 86% 30%, var(--tan) 98%, transparent),
+    radial-gradient(2px 4px at 22% 88%, var(--tan) 98%, transparent),
+    radial-gradient(3px 5px at 62% 92%, #C4A98A 98%, transparent),
+    radial-gradient(2px 4px at 90% 60%, var(--tan) 98%, transparent);
+  pointer-events:none;
+}
+
+/* ---------- month calendar (the ceremony dates, ringed) ----------
+   Every colour and size the calendar uses is a variable, so it can be
+   restyled without touching the table structure below. */
+:root{
+  --cal-ink:      var(--maroon);          /* ordinary day numbers   */
+  --cal-muted:    var(--tan);             /* weekday letters        */
+  --cal-accent:   var(--burgundy);        /* caption + ringed days  */
+  --cal-ring:     rgba(83,13,19,.55);     /* ring around a marked day */
+  --cal-pulse:    rgba(83,13,19,.42);     /* ring that travels outward */
+  --cal-rule:     var(--cal-ring);        /* the flow line down to a ceremony */
+  --cal-cell:     34px;
+  --cal-heart-size: calc(var(--cal-cell) + 8px);   /* the ring around a marked day */
+  --cal-pulse-time: 1.6s;                 /* one full beat          */
+
+  /* The heart that rings a marked day, drawn once and used twice - as the
+     still outline and as the one that beats outward.
+
+     It is carried as a MASK, not as a background image. A mask is painted with
+     background-color, so this one file takes --cal-ring in the cream theme and
+     the gold of the dark one; a colour baked into the SVG could not follow the
+     theme, and two tinted copies would have to be kept in step by hand.
+     The stroke is white because a mask reads either alpha or luminance
+     depending on the engine, and white is 1 under both. */
+  --cal-heart:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.15' stroke-linejoin='round'><path d='M12 21.1l-1.4-1.3C5.4 15.2 2 12.1 2 8.4 2 5.4 4.4 3 7.5 3c1.7 0 3.4.8 4.5 2.1C13.1 3.8 14.8 3 16.5 3 19.6 3 22 5.4 22 8.4c0 3.7-3.4 6.8-8.6 11.4L12 21.1z'/></svg>");
+}
+/* ---------- the ceremonies panel ----------
+   ONE sealed card: the month, the Nikah and the Valima live inside a single
+   rectangle, with hairlines running from each ringed day down to the ceremony
+   it belongs to. Three boxes stacked read as three subjects; one framed panel
+   with lines inside it reads as one - which is what this is.
+
+   The red is not a new colour: it is the same wax-seal gradient the Save the
+   date panel uses, so the card joins that family rather than introducing a
+   second red. And because --panel/--panel-hi are deliberately the same in both
+   themes, this panel looks identical whichever theme the guest is in - it is
+   its own lit environment, the way a printed card is. */
+.cal-card{
+  /* 26px of side padding, not 20: it is the channel the long flow line falls
+     down, and at 20 the line ran close enough to the frame to read as a second
+     frame rather than as a line going somewhere */
+  position:relative;margin:46px auto 0;padding:34px 26px 38px;border-radius:3px;
+  background:radial-gradient(circle at 50% 14%, var(--panel-hi), var(--panel) 74%);
+  /* the frame is an inset shadow rather than a border, so the padding below
+     stays the whole story of where the content sits */
+  box-shadow:0 22px 46px var(--shadow), inset 0 0 0 1px rgba(223,190,140,.42);
+
+  /* One ink set, no theme variants: the ground under it is the same red in
+     both themes, so a second palette here would only be a way to get it wrong. */
+  --panel-ink:#F4E7D2;
+  --panel-ink-dim:rgba(244,231,210,.74);
+  --cal-ink:var(--panel-ink);
+  /* .85, not .72: the weekday letters sit at the brightest point of the
+     gradient, where anything lighter drops under 4.5:1 */
+  --cal-muted:rgba(223,190,140,.85);
+  --cal-accent:var(--gold);
+  --cal-ring:rgba(223,190,140,.85);
+  --cal-pulse:rgba(223,190,140,.5);
+  --cal-rule:rgba(223,190,140,.55);
+  /* a touch smaller than on the open page: the panel's padding has to stay wide
+     enough to carry a flow line down the side of it */
+  --cal-cell:32px;
+  --cal-heart-size:38px;
+}
+/* The month is not boxed inside the panel - it would be a frame within a frame,
+   and a hairline leaving a ringed day would have to pierce it. */
+.cal-wrap{width:min(100%,330px);margin:0 auto;position:relative}
+/* a month grid is tabular data, so it is a real <table>; the weekday <th>s are
+   what let a screen reader announce "Sunday 6" on a highlighted cell */
+.cal{width:100%;table-layout:fixed;border-collapse:collapse;position:relative}
+.cal caption{
+  font-family:var(--sans);font-weight:400;font-size:10px;
+  letter-spacing:.35em;text-indent:.35em;   /* cancels the trailing space so it stays centred */
+  text-transform:uppercase;color:var(--cal-accent);padding-bottom:18px;
+}
+.cal th{
+  font-family:var(--sans);font-weight:400;font-size:9px;
+  letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cal-muted);padding-bottom:12px;
+}
+.cal th abbr{text-decoration:none;border:0;cursor:inherit}   /* no dotted underline */
+.cal td{padding:0;text-align:center}
+.cal-day{
+  display:grid;place-items:center;
+  width:var(--cal-cell);height:var(--cal-cell);margin:1px auto;
+  font-family:var(--serif);font-weight:500;font-size:17px;
+  line-height:1;color:var(--cal-ink);
+  /* tabular figures: without them a 1 is narrower than a 7 and the columns
+     visibly wobble from row to row.
+     lining figures matter just as much here: Cormorant defaults to OLD-STYLE
+     numerals, where 1 and 2 sit at x-height, 3 4 5 7 9 hang below the baseline
+     and 6 8 rise above it. Inside a fixed cell each digit then lands at its own
+     height - a 3 ringed by a heart reads as sunk, a 6 as centred. Lining
+     figures give every day one cap height and one baseline, so the ring sits
+     the same on all of them. */
+  font-variant-numeric:tabular-nums lining-nums;
+}
+.cal-day.is-marked{
+  position:relative;color:var(--cal-accent);font-weight:600;
+}
+/* ::before is the heart that stays, ::after the one that beats outward */
+.cal-day.is-marked::before,
+.cal-day.is-marked::after{
+  content:'';position:absolute;pointer-events:none;
+  width:var(--cal-heart-size);height:var(--cal-heart-size);
+  /* A heart carries its weight above its point: its body sits at about 40% of
+     its height, not at 50% the way a circle's does. Centre one on a digit and
+     the digit reads as sunk into the point. So the heart hangs 3px BELOW centre
+     - the outline moves, never the number, which has to stay on the grid with
+     the other days. Centred with margins rather than a translate, because the
+     pulse below needs transform to itself. */
+  left:50%;margin-left:calc(var(--cal-heart-size) / -2);
+  top:50%; margin-top:calc(var(--cal-heart-size) / -2 + 3px);
+  -webkit-mask:var(--cal-heart) center/contain no-repeat;
+          mask:var(--cal-heart) center/contain no-repeat;
+}
+.cal-day.is-marked::before{background:var(--cal-ring)}
+.cal-day.is-marked::after{
+  background:var(--cal-pulse);opacity:0;
+  /* --pd is written per heart by the builder, so the two ceremony days beat in
+     date order instead of in unison */
+  animation:cal-pulse var(--cal-pulse-time) ease-out var(--pd,0s) infinite;
+}
+/* If masks are unavailable the hearts would simply never paint, so the day
+   falls back to the circle it had before - still marked, just not a heart. */
+@supports not ((-webkit-mask-image:url("")) or (mask-image:url(""))){
+  .cal-day.is-marked{border:1px solid var(--cal-ring);border-radius:50%}
+  .cal-day.is-marked::before{display:none}
+  .cal-day.is-marked::after{
+    background:none;border:1px solid var(--cal-pulse);
+    border-radius:50%;inset:-4px;
+  }
+}
+/* The ring finishes travelling by 55% and then holds invisible for the rest of
+   the cycle. That silent tail is what keeps a looping pulse reading as a
+   heartbeat rather than a blinking interface element. It is a PERCENTAGE, so
+   changing --cal-pulse-time alone changes tempo and keeps the rhythm. */
+@keyframes cal-pulse{
+  0%{opacity:.9;transform:scale(.85)}
+  55%{opacity:0;transform:scale(1.6)}
+  100%{opacity:0;transform:scale(1.6)}
+}
+/* ---------- the flow lines ----------
+   A hairline from each ringed day down to the ceremony it belongs to, so the
+   month and the cards read as one diagram rather than two things stacked.
+
+   Drawn in SVG from MEASURED positions, never placed by hand: the day cells
+   move with the month and the cards move with the length of their address, so
+   any hardcoded path would be wrong the first time either changed.
+   Decorative - the ringed cell already announces its own label - so aria-hidden. */
+.cal-flow{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.cal-flow path{
+  fill:none;stroke:var(--cal-rule);stroke-width:1;
+  stroke-linecap:round;stroke-linejoin:round;
+}
+.cal-flow .tip{fill:var(--cal-ring);stroke:none}   /* the turned diamond where it lands */
+/* visually hidden, still read aloud — this is how a marked day announces WHY */
+.cal-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+@media (prefers-reduced-motion: reduce){
+  .cal-day.is-marked::after{animation:none}   /* the ring stays, it just stops beating */
+}
+
+/* ---------- countdown ---------- */
+/* The countdown is part of the reveal, not a spoiler for it: until the wax
+   seal has actually been scratched open there is no countdown on the page at
+   all. finish() in the scratch code puts .date-revealed on <body>. display
+   (rather than opacity) is what hides it, so the section takes up no space and
+   its .fade children stay unrevealed until they scroll into view for real. */
+body:not(.date-revealed) #countdown{display:none}
+.count-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:6px;max-width:360px;margin:36px auto 0;
+}
+.count-num{font-family:var(--sans);font-weight:600;font-size:27px;color:var(--maroon);line-height:1}
+.count-label{
+  font-size:9px;letter-spacing:.3em;text-transform:uppercase;
+  text-indent:.3em;color:var(--maroon-soft);margin-top:10px;font-weight:400;
+}
+
+/* ---------- section kickers ---------- */
+.kicker{
+  font-family:var(--sans);font-weight:400;font-size:10px;
+  letter-spacing:.4em;text-transform:uppercase;text-indent:.4em;
+  color:var(--tan);margin-bottom:16px;
+}
+
+/* ---------- ceremonies, inside the panel ----------
+   No card of their own any more: inside one frame, a second frame around each
+   ceremony would fight it. They are open blocks separated by space, and the
+   diamond where each flow line lands is what marks the head of one. */
+.ceremonies{display:flex;flex-direction:column;gap:38px;margin-top:44px}
+/* no side padding: "Valima / Wedding Ceremony" overruns a 390px phone by a
+   few px with any, and breaks after the slash - the panel's own padding is
+   already the margin this text needs */
+.ceremony{position:relative}
+.ceremony-name{
+  font-family:var(--serif);font-style:italic;font-weight:500;
+  font-size:26px;color:var(--gold-light);line-height:1.25;
+  text-wrap:balance;
+}
+.ceremony-date{
+  font-family:var(--sans);font-weight:600;font-size:12.5px;
+  letter-spacing:.16em;text-indent:.16em;text-transform:uppercase;
+  color:var(--panel-ink);margin-top:15px;
+}
+.ceremony-hijri{font-size:11px;letter-spacing:.14em;color:rgba(223,190,140,.85);margin-top:5px}
+.ceremony-time{
+  font-family:var(--sans);font-weight:400;font-size:17px;
+  letter-spacing:.22em;text-indent:.22em;color:var(--gold);margin-top:18px;
+}
+.ceremony-note{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--panel-ink-dim);margin-top:7px}
+.ceremony-place{font-size:12.5px;line-height:1.85;color:var(--panel-ink-dim);margin-top:20px}
+.ceremony-place b{
+  display:block;margin-bottom:2px;font-weight:600;
+  color:var(--panel-ink);letter-spacing:.05em;font-size:13px;
+}
+
+/* ---------- venues ---------- */
+.venue-link{display:block;text-decoration:none;color:inherit;margin-top:44px}
+.venue-pin{width:34px;height:34px;margin:0 auto;display:block;stroke:var(--burgundy)}
+.venue-loc{
+  font-family:var(--serif);font-weight:600;font-size:17px;
+  letter-spacing:.34em;text-indent:.34em;color:var(--maroon);margin-top:8px;
+}
+.venue-div{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  color:var(--tan);margin-top:4px;font-size:11px;
+}
+.venue-div::before,.venue-div::after{content:'';width:60px;height:1px;background:var(--tan)}
+.map-sketch{width:210px;height:96px;margin:14px auto 0;display:block;opacity:.85}
+.venue-img{width:min(300px,80vw);margin:16px auto 0;display:none;border-radius:6px}
+.venue-hint{font-size:12px;font-weight:500;color:var(--crimson);letter-spacing:.02em;margin-top:26px}
+.venue-addr{
+  font-size:12px;letter-spacing:.08em;line-height:1.9;
+  color:var(--maroon-soft);max-width:300px;margin:4px auto 0;
+}
+
+.venues{display:flex;flex-direction:column;gap:56px;margin-top:44px}
+.venue-for{
+  font-family:var(--serif);font-style:italic;font-weight:500;
+  font-size:22px;color:var(--maroon);
+}
+.venue-link{margin-top:20px}
+.btn{
+  display:inline-block;margin-top:22px;cursor:pointer;
+  font-family:var(--sans);font-weight:400;font-size:12px;
+  letter-spacing:.26em;text-indent:.26em;text-transform:uppercase;
+  padding:13px 26px;border-radius:8px;text-decoration:none;
+  background:var(--burgundy);color:var(--btn-ink);border:1px solid var(--burgundy);
+  transition:background .3s;
+}
+.btn:hover{background:var(--btn-hover)}
+.btn:focus-visible{outline:2px solid var(--burgundy);outline-offset:3px}
+.btn-ghost{background:transparent;color:var(--maroon)}
+.btn-ghost:hover{background:var(--ghost-hover)}
+
+/* ---------- presence ---------- */
+.presence-copy{
+  font-family:var(--serif);font-style:italic;font-size:17px;font-weight:400;
+  line-height:1.9;color:var(--maroon-soft);max-width:330px;margin:30px auto 0;
+}
+/* the hashtag keeps its capitals - do not uppercase it */
+.hashtag{
+  font-family:var(--sans);font-weight:500;font-size:13px;
+  letter-spacing:.16em;color:var(--crimson);margin-top:40px;
+}
+.footer-credit.hashtag{
+  margin-top:30px;font-size:12px;text-transform:none;
+  letter-spacing:.16em;text-indent:0;color:var(--crimson);
+}
+
+/* ---------- forever mode (after the wedding) ---------- */
+.forever-only{display:none}
+body.forever .forever-only{display:block}
+body.forever .before-only{display:none}
+.crossing-title{
+  font-family:var(--serif);font-weight:500;font-size:34px;
+  color:var(--maroon);letter-spacing:.02em;
+}
+.crossing-line{
+  font-family:var(--serif);font-style:italic;font-size:18px;
+  color:var(--maroon-soft);margin-top:14px;
+}
+.since-date{
+  font-family:var(--serif);font-weight:600;font-size:20px;
+  letter-spacing:.12em;text-indent:.12em;color:var(--maroon);margin-top:6px;
+}
+.journey{
+  display:flex;flex-direction:column;gap:18px;
+  max-width:340px;margin:38px auto 0;text-align:left;
+}
+.milestone{
+  display:flex;gap:16px;align-items:flex-start;
+  background:var(--cream-soft);border:1px solid var(--tan);
+  border-radius:10px;padding:18px 20px;
+}
+.milestone.locked{opacity:.42}
+.milestone-art{font-size:22px;line-height:1.3;flex:none}
+.milestone-title{
+  font-family:var(--sans);font-weight:600;font-size:13px;
+  letter-spacing:.06em;color:var(--maroon);
+}
+.milestone-note{font-size:12px;line-height:1.7;color:var(--maroon-soft);margin-top:4px}
+.closing-line{
+  font-family:var(--serif);font-style:italic;font-size:19px;line-height:1.6;
+  color:var(--maroon);margin:8px auto 0;max-width:320px;
+}
+.closing-note{
+  font-size:12.5px;line-height:1.9;color:var(--maroon-soft);
+  max-width:320px;margin:16px auto 0;
+}
+
+/* ---------- inline art that has to follow the theme ----------
+   The medallion, the footer flowers, the map sketch and the map pin carry their
+   colours as SVG presentation attributes (fill="#66000C"). Those attributes sit
+   BELOW author CSS in the cascade, so a plain rule here re-colours them without
+   touching the markup - which is what lets them turn with the theme.
+
+   The peonies and the chandelier in the art library are deliberately left
+   alone: deep red and gold on warm black is the same picture it is on cream. */
+.medallion g[fill]{fill:var(--art-rose)}
+.footer-flowers g[fill]{fill:var(--art-rose)}
+.footer-flowers g[stroke]{stroke:var(--tan)}
+.map-sketch{stroke:var(--tan)}
+.map-sketch circle[fill]{fill:var(--tan)}
+.venue-pin circle[fill]{fill:var(--burgundy)}
+
+/* ---------- footer ---------- */
+footer{padding:60px 24px 90px;text-align:center;position:relative}
+.footer-ar{font-family:var(--arabic);font-weight:700;font-size:42px;color:var(--maroon);line-height:1.6}
+.footer-flowers{width:110px;height:56px;margin:26px auto 0;display:block}
+.footer-credit{
+  margin-top:30px;font-size:9.5px;letter-spacing:.32em;
+  text-transform:uppercase;text-indent:.32em;color:var(--maroon-soft);
+}
+.footer-credit a{color:inherit;text-decoration:none}
+</style>
+
+<script>
+/* ---------- theme, decided before the first paint ----------
+   This one job cannot wait for the script at the bottom of the page: by then
+   the browser has already painted the cream page, and a guest who chose dark
+   would watch it flash cream and then snap over. Everything else about the
+   theme (the button, the toggle) lives with the rest of the JS below.
+
+   A saved choice always wins; with none, follow the phone's own setting. */
+(function(){
+  /* A guest with their phone on dark opens the invitation dark. Set this to
+     false to always open on cream and let the button be the only way into the
+     dark theme - a saved choice still wins either way. */
+  var FOLLOW_PHONE_SETTING = true;
+
+  var saved = null;
+  try { saved = localStorage.getItem('qz-theme'); } catch(e){/* private mode */}
+  var dark = saved ? saved === 'dark'
+                   : FOLLOW_PHONE_SETTING &&
+                     matchMedia('(prefers-color-scheme: dark)').matches;
+  if (dark) document.documentElement.setAttribute('data-theme', 'dark');
+})();
+</script>
+</head>
+<body>
+
+<!-- ============ SVG ART LIBRARY (florals + chandelier) ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <radialGradient id="gPeony" cx="45%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#8E1B26"/>
+      <stop offset="60%" stop-color="#6B0F1A"/>
+      <stop offset="100%" stop-color="#4C0A12"/>
+    </radialGradient>
+    <radialGradient id="gPeony2" cx="45%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#A02532"/>
+      <stop offset="100%" stop-color="#701019"/>
+    </radialGradient>
+    <radialGradient id="gCream" cx="45%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#F4EDDC"/>
+      <stop offset="100%" stop-color="#DDD1B4"/>
+    </radialGradient>
+    <radialGradient id="gGlow" cx="50%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#F3DFB6" stop-opacity=".5"/>
+      <stop offset="100%" stop-color="#F3DFB6" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- one peony flower, reused at several sizes -->
+    <g id="peony">
+      <g fill="url(#gPeony)">
+        <ellipse rx="13" ry="24" transform="rotate(0)"/>
+        <ellipse rx="13" ry="24" transform="rotate(45)"/>
+        <ellipse rx="13" ry="24" transform="rotate(90)"/>
+        <ellipse rx="13" ry="24" transform="rotate(135)"/>
+      </g>
+      <g fill="url(#gPeony2)">
+        <ellipse rx="9" ry="16" transform="rotate(22)"/>
+        <ellipse rx="9" ry="16" transform="rotate(67)"/>
+        <ellipse rx="9" ry="16" transform="rotate(112)"/>
+        <ellipse rx="9" ry="16" transform="rotate(157)"/>
+      </g>
+      <circle r="6.5" fill="#4C0A12"/>
+      <circle r="2.4" fill="#8E1B26"/>
+    </g>
+
+    <!-- cream rose -->
+    <g id="rose">
+      <g fill="url(#gCream)" stroke="#C9BDA0" stroke-width=".6">
+        <ellipse rx="10" ry="17" transform="rotate(10)"/>
+        <ellipse rx="10" ry="17" transform="rotate(55)"/>
+        <ellipse rx="10" ry="17" transform="rotate(100)"/>
+        <ellipse rx="10" ry="17" transform="rotate(145)"/>
+      </g>
+      <circle r="6" fill="#E7DCC2"/>
+      <circle r="3.4" fill="#D2C5A4"/>
+      <circle r="1.4" fill="#B49B7F"/>
+    </g>
+
+    <!-- leaf -->
+    <path id="leaf" d="M0 0 Q7 -9 0 -22 Q-7 -9 0 0 Z"/>
+
+    <!-- corner floral cluster -->
+    <symbol id="fl-cluster" viewBox="0 0 220 220" overflow="visible">
+      <!-- foliage -->
+      <g stroke="#8D8A72" stroke-width="1.6" fill="none" stroke-linecap="round">
+        <path d="M40 40 Q95 70 135 130"/>
+        <path d="M55 25 Q110 45 165 60"/>
+        <path d="M25 60 Q55 115 75 165"/>
+      </g>
+      <g fill="#97917B">
+        <use href="#leaf" transform="translate(96,72) rotate(120) scale(1.1)"/>
+        <use href="#leaf" transform="translate(122,102) rotate(135)"/>
+        <use href="#leaf" transform="translate(128,52) rotate(80) scale(.9)"/>
+        <use href="#leaf" transform="translate(58,118) rotate(190) scale(1.05)"/>
+        <use href="#leaf" transform="translate(70,148) rotate(200) scale(.85)"/>
+      </g>
+      <g fill="#7E7B63">
+        <use href="#leaf" transform="translate(150,62) rotate(95) scale(.8)"/>
+        <use href="#leaf" transform="translate(140,120) rotate(150) scale(.9)"/>
+      </g>
+      <!-- gold sprigs + berries -->
+      <g stroke="#C4A567" stroke-width="1.1" fill="none" stroke-linecap="round">
+        <path d="M60 55 Q120 70 168 96"/>
+        <path d="M45 80 Q80 130 96 172"/>
+      </g>
+      <g fill="#C4A567">
+        <circle cx="168" cy="96" r="2.4"/><circle cx="156" cy="88" r="1.8"/>
+        <circle cx="96" cy="172" r="2.4"/><circle cx="88" cy="158" r="1.8"/>
+        <circle cx="145" cy="80" r="1.6"/><circle cx="82" cy="142" r="1.6"/>
+      </g>
+      <!-- flowers -->
+      <use href="#peony" transform="translate(52,52) scale(1.5)"/>
+      <use href="#peony" transform="translate(126,38) scale(.85) rotate(30)"/>
+      <use href="#rose"  transform="translate(105,95) scale(1.05) rotate(-15)"/>
+      <use href="#peony" transform="translate(38,128) scale(1) rotate(60)"/>
+      <use href="#rose"  transform="translate(88,20) scale(.7) rotate(40)"/>
+      <!-- buds -->
+      <g fill="#6B0F1A">
+        <ellipse cx="150" cy="118" rx="5.5" ry="9" transform="rotate(35 150 118)"/>
+        <ellipse cx="30" cy="90" rx="5" ry="8" transform="rotate(-20 30 90)"/>
+      </g>
+      <!-- baby's breath -->
+      <g fill="#EFE6D2">
+        <circle cx="160" cy="72" r="2.2"/><circle cx="170" cy="112" r="2"/>
+        <circle cx="118" cy="128" r="2.2"/><circle cx="60" cy="160" r="2"/>
+        <circle cx="104" cy="60" r="1.8"/><circle cx="36" cy="150" r="1.8"/>
+      </g>
+    </symbol>
+
+    <!-- gold chandelier (two tiers, crystal fringe) -->
+    <symbol id="chandelier-art" viewBox="0 0 216 250" overflow="visible">
+      <defs>
+        <linearGradient id="gGoldC" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#EFDAA6"/>
+          <stop offset=".5" stop-color="#C09B52"/>
+          <stop offset="1" stop-color="#8A6528"/>
+        </linearGradient>
+        <radialGradient id="gFlameC" cx="50%" cy="68%" r="60%">
+          <stop offset="0" stop-color="#FBEBC4"/>
+          <stop offset=".55" stop-color="#F0C878"/>
+          <stop offset="1" stop-color="#D89B4A" stop-opacity=".85"/>
+        </radialGradient>
+        <g id="cndl">
+          <ellipse cx="0" cy="2.4" rx="6.2" ry="2.4" fill="url(#gGoldC)"/>
+          <rect x="-2.6" y="-13" width="5.2" height="14" rx="1.2" fill="#F4ECDA"/>
+          <circle cx="0" cy="-17.5" r="6" fill="#F7DFA6" opacity=".28"/>
+          <path d="M0 -22 q3.4 5.2 0 9 q-3.4 -3.8 0 -9" fill="url(#gFlameC)"/>
+        </g>
+      </defs>
+
+      <ellipse cx="108" cy="100" rx="95" ry="80" fill="url(#gGlow)"/>
+
+      <!-- chain + canopy -->
+      <g stroke="url(#gGoldC)" fill="none" stroke-width="1.5">
+        <ellipse cx="108" cy="5" rx="3" ry="5"/>
+        <ellipse cx="108" cy="13" rx="3" ry="5"/>
+        <ellipse cx="108" cy="21" rx="3" ry="5"/>
+      </g>
+      <path d="M100 27 h16 l4 8 h-24 z" fill="url(#gGoldC)"/>
+
+      <!-- sweeping cage arms -->
+      <g stroke="url(#gGoldC)" fill="none" stroke-width="1.8" stroke-linecap="round">
+        <path d="M108 36 C60 44 40 84 40 128"/>
+        <path d="M108 36 C156 44 176 84 176 128"/>
+        <path d="M108 40 C82 50 76 86 76 122"/>
+        <path d="M108 40 C134 50 140 86 140 122"/>
+        <path d="M108 58 C82 60 70 68 70 80"/>
+        <path d="M108 58 C134 60 146 68 146 80"/>
+        <path d="M108 58 C96 60 88 65 88 72"/>
+        <path d="M108 58 C120 60 128 65 128 72"/>
+        <!-- rings -->
+        <path d="M70 80 Q108 92 146 80" stroke-width="1.3"/>
+        <path d="M40 128 Q108 148 176 128" stroke-width="1.6"/>
+        <!-- column -->
+        <line x1="108" y1="32" x2="108" y2="140" stroke-width="3.2"/>
+      </g>
+
+      <!-- scroll curls at arm tips -->
+      <g stroke="url(#gGoldC)" fill="none" stroke-width="1.2">
+        <circle cx="46" cy="118" r="4"/><circle cx="170" cy="118" r="4"/>
+        <circle cx="80" cy="112" r="3.4"/><circle cx="136" cy="112" r="3.4"/>
+      </g>
+
+      <!-- column beads + finial -->
+      <g fill="url(#gGoldC)">
+        <circle cx="108" cy="48" r="4"/>
+        <circle cx="108" cy="66" r="5.5"/>
+        <circle cx="108" cy="88" r="4.4"/>
+        <circle cx="108" cy="106" r="5"/>
+        <circle cx="108" cy="124" r="4"/>
+        <circle cx="108" cy="146" r="6.5"/>
+      </g>
+      <path d="M108 154 q5 8 0 15 q-5 -7 0 -15" fill="#EDC3B8"/>
+
+      <!-- candles: upper tier -->
+      <use href="#cndl" transform="translate(88,72) scale(.85)"/>
+      <use href="#cndl" transform="translate(128,72) scale(.85)"/>
+      <use href="#cndl" transform="translate(70,80) scale(.9)"/>
+      <use href="#cndl" transform="translate(146,80) scale(.9)"/>
+      <!-- candles: lower tier -->
+      <use href="#cndl" transform="translate(40,128)"/>
+      <use href="#cndl" transform="translate(76,122)"/>
+      <use href="#cndl" transform="translate(140,122)"/>
+      <use href="#cndl" transform="translate(176,128)"/>
+
+      <!-- short drops from upper ring -->
+      <g stroke="url(#gGoldC)" stroke-width=".8">
+        <line x1="94" y1="88" x2="94" y2="100"/>
+        <line x1="108" y1="91" x2="108" y2="104"/>
+        <line x1="122" y1="88" x2="122" y2="100"/>
+      </g>
+      <g fill="#F3DFB6">
+        <circle cx="94" cy="103" r="2.2"/><circle cx="108" cy="107" r="2.4"/><circle cx="122" cy="103" r="2.2"/>
+      </g>
+
+      <!-- crystal fringe (pink champagne strands) -->
+      <g>
+        <g transform="translate(48,131)">
+          <line y2="30" stroke="url(#gGoldC)" stroke-width="1.1" opacity=".85"/>
+          <circle cy="8" r="2.2" fill="#F3DFB6"/>
+          <circle cy="16" r="2.3" fill="#EDC3B8"/>
+          <circle cy="23" r="2.1" fill="#F3DFB6"/>
+          <path transform="translate(0,30)" d="M0 0 q3.4 5.5 0 10 q-3.4 -4.5 0 -10" fill="#E4A99C"/>
+        </g>
+        <g transform="translate(60,136)">
+          <line y2="46" stroke="url(#gGoldC)" stroke-width="1.1" opacity=".85"/>
+          <circle cy="13" r="2.2" fill="#F3DFB6"/>
+          <circle cy="24" r="2.3" fill="#EDC3B8"/>
+          <circle cy="35" r="2.1" fill="#F3DFB6"/>
+          <path transform="translate(0,46)" d="M0 0 q3.4 5.5 0 10 q-3.4 -4.5 0 -10" fill="#E4A99C"/>
+        </g>
+        <g transform="translate(72,139)">
+          <line y2="38" stroke="url(#gGoldC)" stroke-width="1.1" opacity=".85"/>
+          <circle cy="11" r="2.2" fill="#F3DFB6"/>
+          <circle cy="20" r="2.3" fill="#EDC3B8"/>
+          <circle cy="29" r="2.1" fill="#F3DFB6"/>
+          <path transform="translate(0,38)" d="M0 0 q3.4 5.5 0 10 q-3.4 -4.5 0 -10" fill="#E4A99C"/>
+        </g>
+        <g transform="translate(84,141)">
+          <line y2="58" stroke="url(#gGoldC)" stroke-width="1.1" opacity=".85"/>
+          <circle cy="16" r="2.2" fill="#F3DFB6"/>
+          <circle cy="30" r="2.3" fill="#EDC3B8"/>
+          <circle cy="44" r="2.1" fill="#F3DFB6"/>
+          <path transform="translate(0,58)" d="M0 0 q3.4 5.5 0 10 q-3.4 -4.5 0 -10" fill="#E4A99C"/>
+        </g>
+        <g transform="translate(96,143)">
+          <line y2="44" stroke="url(#gGoldC)" stroke-width="1.1" opacity=".85"/>
+          <circle cy="12" r="2.2" fill="#F3DFB6"/>
+          <circle cy="23" r="2.3" fill="#EDC3B8"/>
+          <circle cy="33" r="2.1" fill="#F3DFB6"/>
+          <path transform="translate(0,44)" d="M0 0 q3.4 5.5 0 10 q-3.4 -4.5 0 -10" fill="#E4A99C"/>
+        </g>
+        <g transform="translate(108,143)">
+          <line y2="66" stroke="url(#gGoldC)" stroke-width="1.1" opacity=".85"/>
+          <circle cy="18" r="2.2" fill="#F3DFB6"/>
+          <circle cy="34" r="2.3" fill="#EDC3B8"/>
+          <circle cy="50" r="2.1" fill="#F3DFB6"/>
+          <path transform="translate(0,66)" d="M0 0 q3.4 5.5 0 10 q-3.4 -4.5 0 -10" fill="#E4A99C"/>
+        </g>
+        <g transform="translate(120,143)">
+          <line y2="44" stroke="url(#gGoldC)" stroke-width="1.1" opacity=".85"/>
+          <circle cy="12" r="2.2" fill="#F3DFB6"/>
+          <circle cy="23" r="2.3" fill="#EDC3B8"/>
+          <circle cy="33" r="2.1" fill="#F3DFB6"/>
+          <path transform="translate(0,44)" d="M0 0 q3.4 5.5 0 10 q-3.4 -4.5 0 -10" fill="#E4A99C"/>
+        </g>
+        <g transform="translate(132,141)">
+          <line y2="58" stroke="url(#gGoldC)" stroke-width="1.1" opacity=".85"/>
+          <circle cy="16" r="2.2" fill="#F3DFB6"/>
+          <circle cy="30" r="2.3" fill="#EDC3B8"/>
+          <circle cy="44" r="2.1" fill="#F3DFB6"/>
+          <path transform="translate(0,58)" d="M0 0 q3.4 5.5 0 10 q-3.4 -4.5 0 -10" fill="#E4A99C"/>
+        </g>
+        <g transform="translate(144,139)">
+          <line y2="38" stroke="url(#gGoldC)" stroke-width="1.1" opacity=".85"/>
+          <circle cy="11" r="2.2" fill="#F3DFB6"/>
+          <circle cy="20" r="2.3" fill="#EDC3B8"/>
+          <circle cy="29" r="2.1" fill="#F3DFB6"/>
+          <path transform="translate(0,38)" d="M0 0 q3.4 5.5 0 10 q-3.4 -4.5 0 -10" fill="#E4A99C"/>
+        </g>
+        <g transform="translate(156,136)">
+          <line y2="46" stroke="url(#gGoldC)" stroke-width="1.1" opacity=".85"/>
+          <circle cy="13" r="2.2" fill="#F3DFB6"/>
+          <circle cy="24" r="2.3" fill="#EDC3B8"/>
+          <circle cy="35" r="2.1" fill="#F3DFB6"/>
+          <path transform="translate(0,46)" d="M0 0 q3.4 5.5 0 10 q-3.4 -4.5 0 -10" fill="#E4A99C"/>
+        </g>
+        <g transform="translate(168,131)">
+          <line y2="30" stroke="url(#gGoldC)" stroke-width="1.1" opacity=".85"/>
+          <circle cy="8" r="2.2" fill="#F3DFB6"/>
+          <circle cy="16" r="2.3" fill="#EDC3B8"/>
+          <circle cy="23" r="2.1" fill="#F3DFB6"/>
+          <path transform="translate(0,30)" d="M0 0 q3.4 5.5 0 10 q-3.4 -4.5 0 -10" fill="#E4A99C"/>
+        </g>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ======================= LANDING: ENVELOPE COVER ======================= -->
+<div id="overlay" role="dialog" aria-label="Wedding invitation cover">
+  <div class="cover" id="coverTap">
+    <!-- intro video: this is the whole cover. It plays on tap, then reveals
+         the invite. Nothing is drawn behind it as a stand-in. -->
+    <div class="cover-video" id="coverVideo">
+      <video id="introVideo" playsinline preload="auto"></video>
+      <div class="video-label"><span>Tap to open your invitation</span></div>
+      <button id="skipBtn" type="button">Skip &rsaquo;</button>
+    </div>
+  </div>
+</div>
+
+<audio id="bgMusic" loop preload="none"></audio>
+
+<button id="musicBtn" type="button" aria-label="Play music" aria-pressed="false" title="Play music">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+    <path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/>
+    <path class="mute-slash" d="M3.5 3.5l17 17"/>
+  </svg>
+</button>
+
+<button id="themeBtn" type="button" aria-label="Switch to dark theme" aria-pressed="false" title="Dark theme">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+       stroke-linecap="round" stroke-linejoin="round">
+    <path class="i-moon" d="M20.5 14.6A8.6 8.6 0 1 1 9.4 3.5a7 7 0 0 0 11.1 11.1z"/>
+    <g class="i-sun">
+      <circle cx="12" cy="12" r="4"/>
+      <path d="M12 2.4v2M12 19.6v2M2.4 12h2M19.6 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/>
+    </g>
+  </svg>
+</button>
+
+<div class="page">
+
+  <!-- ======================= HERO ======================= -->
+  <section id="hero">
+    <!-- the floral crown is first in the markup and sits at z-index 1, so the
+         chandelier hangs in front of it -->
+    <div class="hero-crown" aria-hidden="true">
+      <img src="assets/images/floral-crown-2.png" alt="" decoding="async">
+    </div>
+
+    <!-- the hanging light. Swap the two lines below to go back to the drawn
+         gold chandelier - the sway animation lives on .chandelier and applies
+         to either one.
+         <svg class="chandelier"><use href="#chandelier-art"/></svg> -->
+    <img class="chandelier" src="assets/images/chandelier.png" alt="" decoding="async">
+    <div class="hero-frame"></div>
+
+    <!-- the top corner clusters are gone: the crown photo already fills those
+         corners. Put these two lines back to restore them.
+         <svg class="fl tl"><use href="#fl-cluster"/></svg>
+         <svg class="fl tr"><use href="#fl-cluster"/></svg> -->
+    <svg class="fl bl"><use href="#fl-cluster"/></svg>
+    <svg class="fl br"><use href="#fl-cluster"/></svg>
+
+    <div class="caps fade" style="position:relative;z-index:4">Together with<br>their families</div>
+    <h1 class="hero-names fade">
+      <span id="heroGroom">Zain</span>
+      <span class="hero-heart">&#9825;</span>
+      <span id="heroBride">Qurrat</span>
+    </h1>
+    <p class="caps fade">
+      We would like to invite you to<br>
+      celebrate with us the most<br>
+      special day of our lives
+    </p>
+    <div class="scroll-cue fade">
+      <div class="scroll-pill"></div>
+      <div class="scroll-label">Scroll to unfold</div>
+    </div>
+  </section>
+
+  <!-- ======================= BISMILLAH + FAMILY INVITE ======================= -->
+  <section id="bismillah">
+    <p class="bismillah-ar fade">&#1576;&#1616;&#1587;&#1618;&#1605;&#1616; &#1575;&#1604;&#1604;&#1617;&#1648;&#1607;&#1616; &#1575;&#1604;&#1585;&#1617;&#1614;&#1581;&#1618;&#1605;&#1648;&#1606;&#1616; &#1575;&#1604;&#1585;&#1617;&#1614;&#1581;&#1616;&#1610;&#1618;&#1605;&#1616;</p>
+    <p class="caps fade" style="margin-top:14px">
+      In the name of Allah<br>the Most Gracious and the Most Merciful
+    </p>
+    <div class="invite-copy fade">
+      <p class="kicker" style="margin-top:34px">The pleasure of your company</p>
+      <p class="caps" id="invitedBy">With the blessings of Allah</p>
+
+      <p class="kicker" style="margin-top:34px">The Groom</p>
+      <span class="invite-name" id="groomFull">Syed Zain Ul Abdin</span>
+      <p class="caps" id="groomFamily">S/o Syed Nadeem</p>
+
+      <span class="invite-name" style="font-weight:400;letter-spacing:.4em;margin-top:30px">With</span>
+
+      <p class="kicker" style="margin-top:22px">The Bride</p>
+      <span class="invite-name" id="brideFull">Syeda Qurrat Ul Ain</span>
+      <p class="caps" id="brideFamily">D/o Syed Ather Hussaini</p>
+
+      <p class="caps" id="inviteLine" style="margin-top:38px">
+        Together with their beloved families, request the honour of<br>
+        your presence as they begin their journey of a lifetime.
+      </p>
+    </div>
+    <svg class="medallion fade" viewBox="0 0 52 52" fill="none" aria-hidden="true">
+      <g fill="#66000C">
+        <circle cx="26" cy="26" r="4.2"/>
+        <path d="M26 6c3 5 3 9 0 13-3-4-3-8 0-13zM26 46c-3-5-3-9 0-13 3 4 3 8 0 13zM6 26c5-3 9-3 13 0-4 3-8 3-13 0zM46 26c-5 3-9 3-13 0 4-3 8-3 13 0zM12 12c5.5 1.5 8.5 4 10 9-5-1.5-8-4.5-10-9zM40 40c-5.5-1.5-8.5-4-10-9 5 1.5 8 4.5 10 9zM40 12c-1.5 5.5-4 8.5-9 10 1.5-5 4.5-8 9-10zM12 40c1.5-5.5 4-8.5 9-10-1.5 5-4.5 8-9 10z"/>
+      </g>
+    </svg>
+  </section>
+
+  <!-- ======================= REVEAL / SCRATCH / SAVE THE DATE ======================= -->
+  <section id="date">
+    <p class="kicker fade">A little surprise</p>
+    <h2 class="title-italic fade">Scratch the Seal</h2>
+    <p class="caps fade" style="margin-top:22px">Rub the wax seal to reveal our date</p>
+
+    <div class="coins fade">
+      <div class="coin coin-seal">
+        <div class="coin-under">
+          <div class="coin-label" id="sealTop">Nikah</div>
+          <div class="coin-date" id="sealDate">Thursday &middot; 03 September 2026</div>
+          <div class="coin-label" id="sealBottom">Save the date</div>
+        </div>
+        <canvas class="scratch"></canvas>
+      </div>
+    </div>
+
+    <div class="std-wrap fade">
+      <div class="std-panel">
+        <div class="std-script">Save the<br>date</div>
+        <div class="std-date" id="stdDate">03.09.2026</div>
+        <div class="std-day" id="stdDay">Thursday</div>
+      </div>
+      <a class="btn fade" id="stdMapLink" href="#" target="_blank" rel="noopener">View Location</a>
+    </div>
+  </section>
+
+  <!-- ======================= COUNTDOWN / FOREVER ======================= -->
+  <section id="countdown">
+    <!-- before the Nikah -->
+    <div class="before-only">
+      <p class="kicker fade">Counting the moments</p>
+      <h2 class="title-italic fade" style="font-size:34px">Until we say Qubool</h2>
+    </div>
+
+    <!-- after the Nikah -->
+    <div class="forever-only">
+      <p class="kicker fade">Since we said Qubool</p>
+      <h2 class="title-italic fade" style="font-size:34px">Our Forever Began</h2>
+      <p class="caps fade" style="margin-top:24px">Together since</p>
+      <p class="since-date fade" id="sinceDate">03 September 2026</p>
+      <p class="caps fade" style="margin-top:32px">Together For</p>
+    </div>
+
+    <div class="count-grid fade">
+      <div><div class="count-num" id="cdD">00</div><div class="count-label">Days</div></div>
+      <div><div class="count-num" id="cdH">00</div><div class="count-label">Hours</div></div>
+      <div><div class="count-num" id="cdM">00</div><div class="count-label">Minutes</div></div>
+      <div><div class="count-num" id="cdS">00</div><div class="count-label">Secs</div></div>
+    </div>
+  </section>
+
+  <!-- ======================= CEREMONIES ======================= -->
+  <section id="ceremonies">
+    <p class="kicker fade">We celebrate</p>
+    <h2 class="title-italic fade">Our Ceremonies</h2>
+
+    <!-- The month sits directly on top of the cards it belongs to, and the two
+         share ONE positioned box: the flow lines are drawn into that box and
+         measure every coordinate from its edges. Split across two sections they
+         could not be joined by a line at all. -->
+    <div class="cal-card" id="calCard">
+      <div class="cal-wrap fade" id="calendar"></div>
+      <div class="ceremonies" id="ceremonyList"></div>
+    </div>
+  </section>
+
+  <!-- ======================= VENUES ======================= -->
+  <section id="venue">
+    <p class="kicker fade">Where hearts gather</p>
+    <h2 class="title-italic fade">The Venues</h2>
+    <div class="venues" id="venueList"></div>
+    <p class="venue-hint fade" style="margin-top:40px">&#9650; Tap a venue to open it in Google Maps</p>
+  </section>
+
+  <!-- ======================= OUR JOURNEY (forever mode) ======================= -->
+  <section id="journey" class="forever-only">
+    <p class="kicker fade">Every step so far</p>
+    <h2 class="title-italic fade">Our Journey</h2>
+    <div class="journey" id="journeyList"></div>
+  </section>
+
+  <!-- ======================= PRESENCE ======================= -->
+  <section id="presence">
+    <p class="kicker fade">Your presence is our gift</p>
+    <h2 class="title-italic fade">Honour Us With Your Company</h2>
+    <p class="presence-copy fade" id="presenceCopy">
+      By the grace of Allah, our hearts have found each other. We would be
+      honoured by your presence and prayers as we begin this blessed journey
+      together.
+    </p>
+    <p class="hashtag fade" id="hashtag">#QurratWedsZain</p>
+  </section>
+
+  <!-- ======================= FOOTER ======================= -->
+  <footer>
+    <p class="footer-ar fade">&#1573;&#1606;&#1618; &#1588;&#1614;&#1575;&#1569;&#1614; &#1575;&#1604;&#1604;&#1617;&#1614;&#1607;&#1615;</p>
+    <p class="caps fade" style="margin-top:10px">Insha Allah</p>
+
+    <div class="forever-only" style="margin-top:34px">
+      <p class="crossing-title fade" id="crossingTitle">Alhamdulillah &#129293;</p>
+      <p class="crossing-line fade" id="crossingLine">The Countdown Ended. Our Forever Began.</p>
+      <p class="closing-note fade" id="closingNote">
+        Alhamdulillah for every moment we&rsquo;ve shared, and every moment yet to come.
+      </p>
+    </div>
+
+    <p class="closing-line fade before-only" id="closingDua" style="margin-top:34px">
+      May Allah bless this union and unite them in goodness. Ameen.
+    </p>
+    <svg class="footer-flowers fade" viewBox="0 0 110 56" fill="none" aria-hidden="true">
+      <g stroke="#B49B7F" stroke-width="1.2">
+        <path d="M55 54V26M35 54c2-10 8-16 14-20M75 54c-2-10-8-16-14-20"/>
+      </g>
+      <g fill="#66000C">
+        <path d="M55 12c4 3 5 8 0 14-5-6-4-11 0-14z"/>
+        <path d="M31 24c5 .5 8 4 8 10-6-1-8-5-8-10z"/>
+        <path d="M79 24c-5 .5-8 4-8 10 6-1 8-5 8-10z"/>
+        <circle cx="55" cy="24" r="2"/><circle cx="38" cy="33" r="1.6"/><circle cx="72" cy="33" r="1.6"/>
+      </g>
+    </svg>
+    <p class="footer-credit hashtag fade" id="footerHashtag">#QurratWedsZain</p>
+  </footer>
+
+</div>
+
+<script>
+/* ============================================================
+   CONFIG - edit everything here
+   ============================================================ */
+const CONFIG = {
+  /* --- the couple --- */
+  bride:      "Qurrat",
+  groom:      "Zain",
+  brideFull:  "Qurrat",
+  groomFull:  "Zain",
+  hashtag:    "#QurratWedsZain",
+
+  /* Short form is on the page. The fuller version supplied was:
+       bride: "Daughter of Syed Ather Hussaini
+               Paternal grand-daughter of late Syed Ahmed Hussaini Saheb
+               Maternal grand-daughter of late Syed Ahmed Hussaini Saheb"
+       groom: "Son of Syed Nadeem
+               Paternal grandson of late Syed Adam Saheb
+               Maternal grandson of Abdul Wajid Saheb"
+     NOTE: the bride's paternal and maternal grandfathers were both given as
+     "late Syed Ahmed Hussaini Saheb" - confirm before using the long form. */
+  brideFamily: "D/o Syed Ather Hussaini",
+  groomFamily: "S/o Syed Nadeem",
+
+  invitedBy:  "With the blessings of Allah",
+  inviteLine: "Together with their beloved families, request the honour of " +
+              "your presence as they begin their journey of a lifetime.",
+
+  /* --- the ceremonies --- */
+  ceremonies: [
+    {
+      name:    "Nikah Ceremony",
+      date:    "Thursday, 3 September 2026",
+      hijri:   "21 Rabbi Ul Awwal",
+      time:    "11:30 AM",
+      note:    "Lunch thereafter",
+      venue:   "Quba Convention Hall",
+      address: "R.R. Layout, Ameer Mohalla, Hassan – 573201",
+      photo:   "assets/images/nikah.jpg",
+      mapsUrl: "https://maps.app.goo.gl/AYFH2ceYPdd1rQxd9?g_st=ic",
+    },
+    {
+      name:    "Valima / Wedding Ceremony",
+      date:    "Sunday, 6 September 2026",
+      hijri:   "",
+      time:    "1:00 PM",
+      note:    "Lunch thereafter",
+      venue:   "Star Palace",
+      address: "308 Thanisandra Main Road, Near Elements Mall, Bengaluru – 560077",
+      photo:   "assets/images/valima.jpg",
+      mapsUrl: "https://maps.app.goo.gl/rZUxBimMVqjCH2Af6?g_st=ic",
+    },
+  ],
+
+  /* --- countdown target: the Nikah, India time --- */
+  dateTime:  "2026-09-03T11:30:00+05:30",
+  dateLabel: "03.09.2026",
+  dayLabel:  "Thursday",
+  sealDate:  "Thursday · 03 September 2026",
+  sinceDate: "03 September 2026",
+
+  /* --- the month grid under "Save the date" ---
+     `date` is a PLAIN calendar date, never a timestamp - see buildCalendar()
+     for why that matters. `label` is what a screen reader reads out, and is
+     what tells someone WHY the day is circled. The month shown is taken from
+     the earliest entry, so there is no separate "which month" setting to keep
+     in sync. Names are spelled out rather than taken from toLocaleDateString,
+     so a guest whose phone is set to another language still reads the page in
+     the language it was written in - swap them to translate. */
+  calendar: {
+    weekStartsMonday: true,     // false -> Sunday-first (US style)
+    pulseStagger: 180,          // ms between each marked day's beat
+    marked: [
+      { date: "2026-09-03", label: "Nikah Ceremony" },
+      { date: "2026-09-06", label: "Valima / Wedding Ceremony" },
+    ],
+    months: ["January","February","March","April","May","June",
+             "July","August","September","October","November","December"],
+    weekdays: [["M","Monday"],["T","Tuesday"],["W","Wednesday"],["T","Thursday"],
+               ["F","Friday"],["S","Saturday"],["S","Sunday"]],
+
+    /* the hairlines from a ringed day down to its ceremony card:
+         gutter  x of a long run, in the channel claimed from the section padding
+         elbow   corner radius        lift  how far above a card the line turns in
+         draw    ms for one line to travel its whole path
+         stagger ms the second line waits behind the first
+         tip     ms for the diamond to fade up */
+    flow: { gutter:13, elbow:10, lift:18, draw:2600, stagger:900, tip:620 },
+  },
+
+  /* --- assets --- */
+  openingVideo: "assets/videos/opening.mp4",  // "" to disable the intro video
+  music:        "assets/audio/nasheed.mp3",   // "" to disable background nasheed
+  musicVolume:  0.55,
+
+  /* --- milestones shown in "forever" mode --- */
+  milestones: [
+    { day:   1, art: "🌸", title: "Our First Day Together",
+      note: "Every forever begins with one beautiful day." },
+    { day:  30, art: "🤍", title: "One Beautiful Month Together",
+      note: "Thirty days of love. A lifetime to go." },
+    { day: 100, art: "✨", title: "100 Days",
+      note: "100 Memories. Infinite Love." },
+  ],
+  anniversary: { art: "🎉", title: "Happy %s Anniversary",
+                 note: "May Allah continue to bless our journey." },
+};
+
+/* ---------- apply config ---------- */
+const $ = id => document.getElementById(id);
+const setText = (id, value) => { const el = $(id); if (el) el.textContent = value; };
+const esc = s => String(s).replace(/[&<>"]/g, c =>
+  ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]));
+
+setText('heroBride',  CONFIG.bride);
+setText('heroGroom',  CONFIG.groom);
+setText('brideFull',  CONFIG.brideFull);
+setText('groomFull',  CONFIG.groomFull);
+setText('brideFamily',CONFIG.brideFamily);
+setText('groomFamily',CONFIG.groomFamily);
+setText('invitedBy',  CONFIG.invitedBy);
+setText('inviteLine', CONFIG.inviteLine);
+setText('hashtag',    CONFIG.hashtag);
+setText('footerHashtag', CONFIG.hashtag);
+setText('stdDate',    CONFIG.dateLabel);
+setText('stdDay',     CONFIG.dayLabel);
+// inside the round seal the date reads better stacked than wrapped mid-phrase
+$('sealDate').innerHTML = esc(CONFIG.sealDate).replace(' · ', '<br>');
+setText('sinceDate',  CONFIG.sinceDate);
+
+const nikah = CONFIG.ceremonies[0];
+if (nikah && nikah.mapsUrl) $('stdMapLink').href = nikah.mapsUrl;
+
+/* ---------- ceremonies + venues ---------- */
+$('ceremonyList').innerHTML = CONFIG.ceremonies.map(c => `
+  <article class="ceremony fade">
+    <h3 class="ceremony-name">${esc(c.name)}</h3>
+    <p class="ceremony-date">${esc(c.date)}</p>
+    ${c.hijri ? `<p class="ceremony-hijri">${esc(c.hijri)}</p>` : ''}
+    <p class="ceremony-time">${esc(c.time)}</p>
+    ${c.note ? `<p class="ceremony-note">${esc(c.note)}</p>` : ''}
+    <p class="ceremony-place"><b>${esc(c.venue)}</b><br>${esc(c.address)}</p>
+  </article>`).join('');
+
+/* the map sketch is inline SVG so each venue card gets its own copy */
+const MAP_SKETCH = `
+  <svg class="map-sketch" viewBox="0 0 210 96" fill="none" stroke="#B49B7F"
+       stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
+    <path d="M8 64 L84 40 L150 58 L204 34"/>
+    <path d="M84 40 L60 8"/><path d="M84 40 L108 92"/>
+    <path d="M150 58 L170 90"/><path d="M150 58 L138 12"/>
+    <circle cx="84" cy="40" r="7"/>
+    <circle cx="84" cy="40" r="2.4" fill="#B49B7F" stroke="none"/>
+  </svg>`;
+
+$('venueList').innerHTML = CONFIG.ceremonies.map(c => `
+  <div class="fade">
+    <p class="venue-for">${esc(c.name)}</p>
+    <a class="venue-link" href="${esc(c.mapsUrl || '#')}" target="_blank" rel="noopener">
+      <svg class="venue-pin" viewBox="0 0 24 24" fill="none" stroke-width="1.3" aria-hidden="true">
+        <path d="M12 21s7-5.1 7-11a7 7 0 1 0-14 0c0 5.9 7 11 7 11z"/>
+        <circle cx="12" cy="10" r="2.6" fill="#530D13" stroke="none"/>
+      </svg>
+      <div class="venue-loc">${esc(c.venue)}</div>
+      <div class="venue-div">&#10022;</div>
+      ${MAP_SKETCH}
+      <img class="venue-img" src="${esc(c.photo)}" alt="${esc(c.venue)}"
+           onload="this.style.display='block';this.previousElementSibling.style.display='none'"
+           onerror="this.remove()">
+    </a>
+    <p class="venue-addr">${esc(c.address)}</p>
+    <a class="btn btn-ghost" href="${esc(c.mapsUrl || '#')}" target="_blank" rel="noopener">Get directions</a>
+  </div>`).join('');
+
+/* ---------- month calendar ----------
+   Builds the whole month from CONFIG.calendar - nothing about September is
+   hardcoded, so changing the marked dates is enough to move the grid. */
+function buildCalendar(cfg){
+  const host = $('calendar');
+  if (!host || !cfg || !cfg.marked || !cfg.marked.length) return;
+
+  /* Split the date string by hand instead of letting Date parse it.
+     new Date("2026-09-03T11:30:00+05:30") is an INSTANT, and reading local
+     .getDate() off it returns the 2nd for anyone west of about UTC-2 - the ring
+     lands on the wrong square for half the guest list. Splitting the plain
+     y/m/d and rebuilding in local time makes the grid identical everywhere. */
+  const marks = cfg.marked
+    .map(m => {
+      const [y, mo, d] = m.date.split('-').map(Number);
+      return { y, mo, d, label: m.label || '' };
+    })
+    .sort((a, b) => (a.y - b.y) || (a.mo - b.mo) || (a.d - b.d));
+
+  const year = marks[0].y, month = marks[0].mo;          // month = 1-12
+
+  /* getDay() is Sunday-0. Rotating by 6 turns it Monday-first; the offset is
+     how many blank cells sit before the 1st. */
+  const firstDay = new Date(year, month - 1, 1).getDay();
+  const lead = cfg.weekStartsMonday ? (firstDay + 6) % 7 : firstDay;
+  /* day 0 of the NEXT month is the last day of this one - no leap-year table */
+  const total = new Date(year, month, 0).getDate();
+
+  const shown = marks.filter(m => m.y === year && m.mo === month);
+  const byDay = new Map(shown.map((m, i) => [m.d, { order: i, label: m.label }]));
+
+  const cells = Array(lead).fill(null);
+  for (let n = 1; n <= total; n++) cells.push(n);
+  while (cells.length % 7) cells.push(null);             // pad the last row
+
+  const week = cfg.weekStartsMonday
+    ? cfg.weekdays
+    : cfg.weekdays.slice(-1).concat(cfg.weekdays.slice(0, -1));
+
+  let rows = '';
+  for (let i = 0; i < cells.length; i += 7){
+    rows += '<tr>' + cells.slice(i, i + 7).map(n => {
+      if (n === null) return '<td></td>';
+      const m = byDay.get(n);
+      if (!m) return `<td><span class="cal-day">${n}</span></td>`;
+      // data-label is how a flow line finds the ceremony card this day belongs to
+      return `<td><span class="cal-day is-marked" data-label="${esc(m.label)}"` +
+             ` style="--pd:${m.order * cfg.pulseStagger}ms">` +
+             `${n}<span class="cal-sr"> &mdash; ${esc(m.label)}</span></span></td>`;
+    }).join('') + '</tr>';
+  }
+
+  host.innerHTML =
+    `<table class="cal"><caption>${esc(cfg.months[month - 1])} ${year}</caption>` +
+    '<thead><tr>' +
+    week.map(([short, full]) =>
+      `<th scope="col"><abbr title="${esc(full)}">${esc(short)}</abbr></th>`).join('') +
+    '</tr></thead><tbody>' + rows + '</tbody></table>';
+  /* There used to be a legend here, listing "03 Nikah Ceremony" under the grid.
+     The flow lines say the same thing better - they point at the card that
+     already carries the date, the time and the address - so it is gone. */
+}
+
+buildCalendar(CONFIG.calendar);
+
+/* ---------- flow lines: each ringed day down to its ceremony ----------
+   The month and the cards are one diagram; these hairlines are what say so. */
+(function flowLines(){
+  const card = document.getElementById('calCard');
+  if (!card || !card.querySelector('.cal-day.is-marked')) return;
+
+  const F = Object.assign({ gutter:12, elbow:10, lift:16,
+                            draw:2600, stagger:900, tip:620 },
+                          (CONFIG.calendar && CONFIG.calendar.flow) || {});
+  const NS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(NS, 'svg');
+  svg.setAttribute('class', 'cal-flow');
+  svg.setAttribute('aria-hidden', 'true');
+  svg.setAttribute('focusable', 'false');
+  card.appendChild(svg);
+
+  /* Measured with offsetLeft/offsetTop, not getBoundingClientRect. Every card
+     here carries .fade, which holds it 26px low behind a transform until it
+     scrolls into view - and a transform moves what getBoundingClientRect
+     reports without moving the layout. A line measured mid-reveal would land
+     26px off and stay there. offset* is layout, so the line lands where the
+     card will settle rather than where it happens to be sitting. */
+  function box(el){
+    let x = 0, y = 0, n = el;
+    while (n && n !== card){ x += n.offsetLeft; y += n.offsetTop; n = n.offsetParent; }
+    return { x, y, w: el.offsetWidth, h: el.offsetHeight };
+  }
+
+  /* A ring is matched to its card BY NAME, falling back to position. The two
+     lists are separate config (CONFIG.calendar.marked and CONFIG.ceremonies),
+     and matching on order alone would silently cross the wires the day someone
+     reorders one of them. */
+  function cardFor(ring, i, blocks){
+    const label = (ring.dataset.label || '').trim();
+    const named = blocks.find(b => {
+      const h = b.querySelector('.ceremony-name');
+      return h && h.textContent.trim() === label;
+    });
+    return named || blocks[i] || null;
+  }
+
+  /* x0,y0 leaves the ring; cx is the channel it falls down; x2,y2 is the card */
+  function route(x0, y0, cx, x2, y2){
+    const yB = y2 - F.lift;
+    const d1 = Math.sign(cx - x0) || 1;
+    const d2 = Math.sign(x2 - cx) || 1;
+    /* the radius shrinks to fit the shortest leg, or one corner overshoots the
+       next and the path doubles back on itself */
+    const r = Math.max(0, Math.min(F.elbow, Math.abs(cx - x0) / 2,
+                                  Math.abs(x2 - cx) / 2, (yB - y0) / 2));
+    return `M${x0} ${y0}` +
+           ` H${cx - d1 * r} Q${cx} ${y0} ${cx} ${y0 + r}` +
+           ` V${yB - r} Q${cx} ${yB} ${cx + d2 * r} ${yB}` +
+           ` H${x2 - d2 * r} Q${x2} ${yB} ${x2} ${yB + r} V${y2}`;
+  }
+
+  /* ---------- the travel ----------
+     The line follows the reading: scrolled down it draws, scrolled back up it
+     retraces itself from wherever it got to. Web Animations rather than CSS
+     keyframes, because a CSS animation reversed mid-flight jumps to one end and
+     restarts, where playbackRate = -1 turns the same one around in place. */
+  const motionOK = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let flows = [];        // {anim, total} in build order
+  let dir = 0;           // 1 drawing, -1 retracing, 0 untouched
+  let prevTimes = [];    // where each was up to before a re-measure threw it away
+
+  function add(anim, total){
+    anim.pause();                                   // nothing moves until seen
+    anim.currentTime = prevTimes[flows.length] || 0;
+    flows.push({ anim, total });
+  }
+
+  function run(d){
+    if (d === dir || !flows.length) return;
+    dir = d;
+    flows.forEach(f => {
+      const t = f.anim.currentTime || 0;
+      f.anim.playbackRate = d;
+      /* one already parked at the end it is pointed away from has nowhere to go,
+         and play() would seek it to the far end and run the whole thing again */
+      if (d < 0 ? t <= 0 : t >= f.total) f.anim.pause();
+      else f.anim.play();
+    });
+  }
+
+  function draw(){
+    /* the paths are about to be rebuilt - carry the travel across, so a resize
+       or the webfonts landing does not snap a half-drawn line back to the start */
+    prevTimes = flows.map(f => f.anim.currentTime || 0);
+    flows.forEach(f => f.anim.cancel());
+    flows = [];
+
+    const rings  = card.querySelectorAll('.cal-day.is-marked');
+    const blocks = Array.from(card.querySelectorAll('.ceremony'));
+    const table  = card.querySelector('.cal');
+    const W = card.offsetWidth, H = card.offsetHeight;
+    if (!W || !table || !blocks.length) return;
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+    const t = box(table);
+    const tableBottom = t.y + t.h;
+
+    rings.forEach((ring, i) => {
+      const block = cardFor(ring, i, blocks);
+      if (!block) return;
+      const a = box(ring), b = box(block);
+      const cell = box(ring.closest('td') || ring);
+
+      /* leave the ring on the side it already sits on, so two lines mirror */
+      const right = (a.x + a.w / 2) > W / 2;
+      const x0 = right ? a.x + a.w + 3 : a.x - 3;
+      const y0 = a.y + a.h / 2;
+      const x2 = b.x + b.w / 2;
+      const y2 = b.y - 8;                       // stop just above the card's edge
+      if (y2 <= y0 + 24) return;                // no room: draw nothing at all
+
+      /* The channel. A line cannot simply fall from a ring: straight down its
+         own column it would run through every date underneath it, and the rows
+         are cells a couple of px apart with no corridor to escape into. The one
+         clear channel through a month grid is the VERTICAL gap between columns,
+         so the line crosses the few px to its own cell's boundary - a band with
+         no glyphs in it - and falls down that. A run that has to pass a whole
+         card on the way is pushed further out, into the gutter this wrapper
+         claimed from the section padding, which is empty by construction. */
+      const edge = right ? cell.x + cell.w : cell.x;
+      const far  = y2 - tableBottom > 60;
+      const cx   = far ? (right ? W - F.gutter : F.gutter) : edge;
+
+      const p = document.createElementNS(NS, 'path');
+      p.setAttribute('d', route(x0, y0, cx, x2, y2));
+      /* appended BEFORE it is measured: Safari returns 0 from getTotalLength on
+         a path not yet in the document, which would leave the dash pattern empty
+         and the line drawn already complete */
+      svg.appendChild(p);
+      const len = p.getTotalLength();
+
+      const tip = document.createElementNS(NS, 'path');
+      tip.setAttribute('class', 'tip');
+      tip.setAttribute('d', `M${x2} ${y2-4} L${x2+4} ${y2} L${x2} ${y2+4} L${x2-4} ${y2} Z`);
+      svg.appendChild(tip);
+
+      if (!motionOK) return;      // drawn complete and left alone, ring included
+
+      const fd = i * F.stagger;                 // the second line follows the first
+      const tipAt = F.draw * .84;               // the diamond lands as the nib arrives
+      /* in px, not bare user units: the viewBox is 1:1 with the card's CSS
+         pixels, and a unitless length is a coin toss across engines */
+      p.style.strokeDasharray  = len + 'px';
+      p.style.strokeDashoffset = len + 'px';
+      tip.style.opacity = 0;
+      /* near-steady rather than a whip: soft at both ends, even through the
+         middle - a hand moving at one pace, which also makes the tip's timing a
+         fair reading of distance */
+      add(p.animate({ strokeDashoffset: [len + 'px', '0px'] },
+            { duration: F.draw, delay: fd, easing: 'cubic-bezier(.3,.1,.5,.9)', fill: 'both' }),
+          fd + F.draw);
+      add(tip.animate({ opacity: [0, 1] },
+            { duration: F.tip, delay: fd + tipAt, easing: 'ease-out', fill: 'both' }),
+          fd + tipAt + F.tip);
+    });
+
+    if (dir){ const d = dir; dir = 0; run(d); }   // pick the travel back up
+  }
+
+  draw();
+  /* Webfont metrics move every coordinate above, and this card is sized by its
+     own text - so measure again once the faces have landed. */
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+  if (window.ResizeObserver) new ResizeObserver(draw).observe(card);
+  else addEventListener('resize', draw);
+
+  /* Nothing starts on load: the travel begins when the card is actually on
+     screen, and takes its direction from the scroll. */
+  if (motionOK){
+    let lastY = scrollY, sDir = 1, visible = false;
+    addEventListener('scroll', () => {
+      const dy = scrollY - lastY;
+      /* let a few px gather: a rubber-band settle or a trackpad's last stray
+         pixel is not a change of mind */
+      if (Math.abs(dy) < 4) return;
+      lastY = scrollY;
+      sDir = dy > 0 ? 1 : -1;
+      if (visible) run(sDir);
+    }, { passive: true });
+
+    new IntersectionObserver(es => es.forEach(x => {
+      visible = x.isIntersecting;
+      if (visible) run(sDir);
+    }), { threshold: .18 }).observe(card);
+  }
+})();
+
+/* ---------- landing overlay + music ---------- */
+const overlay = document.getElementById('overlay');
+const music = document.getElementById('bgMusic');
+const musicBtn = document.getElementById('musicBtn');
+const themeBtn = document.getElementById('themeBtn');   // both appear together, once the cover lifts
+document.body.style.overflow = 'hidden';
+
+if (CONFIG.music){ music.src = CONFIG.music; music.volume = CONFIG.musicVolume; }
+
+const coverVideo = document.getElementById('coverVideo');
+const intro = document.getElementById('introVideo');
+let playingIntro = false, videoFailed = false;
+
+if (CONFIG.openingVideo){
+  intro.src = CONFIG.openingVideo;
+  // missing or unplayable file: the cover stays as the dark ground plus the
+  // tap label, and the tap goes straight through to the invite
+  intro.addEventListener('error', () => { videoFailed = true; });
+  intro.addEventListener('ended', dismissCover);
+}
+
+function openInvitation(){
+  if (overlay.classList.contains('hidden')) return;
+  // try the video even if it has not preloaded yet (iOS defers loading)
+  if (CONFIG.openingVideo && !videoFailed && !playingIntro){
+    playingIntro = true;
+    coverVideo.classList.add('playing');
+    const p = intro.play();
+    if (p) p.catch(dismissCover);
+    // safety net in case 'ended' never fires
+    const wait = (isFinite(intro.duration) && intro.duration ? intro.duration : 4) + 1.5;
+    setTimeout(dismissCover, wait * 1000);
+  } else {
+    dismissCover();                        // no video, or tap-to-skip
+  }
+}
+
+function dismissCover(){
+  if (overlay.classList.contains('hidden')) return;
+  overlay.classList.add('hidden');
+  document.body.style.overflow = '';
+  document.body.classList.add('opened');
+  musicBtn.classList.add('show');
+  themeBtn.classList.add('show');
+  music.play().catch(() => {/* no audio file / autoplay blocked - toggle still works */});
+}
+document.getElementById('coverTap').addEventListener('click', openInvitation);
+document.getElementById('skipBtn').addEventListener('click', e => { e.stopPropagation(); dismissCover(); });
+
+/* One tap pauses, the next resumes. The click only ASKS for the change - the
+   button is repainted by the play/pause events below, never here, so it cannot
+   end up showing "playing" after a play() that the browser refused. */
+musicBtn.addEventListener('click', () => {
+  if (music.paused) music.play().catch(()=>{});
+  else music.pause();
+});
+
+/* the button mirrors the audio element rather than guessing, so its state
+   stays right however playback was started or stopped */
+const syncMusicBtn = () => {
+  const playing = !music.paused;
+  musicBtn.classList.toggle('playing', playing);
+  musicBtn.setAttribute('aria-pressed', playing ? 'true' : 'false');
+  // the label has to say what the tap will DO, not what the audio is doing
+  const label = playing ? 'Pause music' : 'Play music';
+  musicBtn.setAttribute('aria-label', label);
+  musicBtn.title = label;
+};
+music.addEventListener('play', syncMusicBtn);
+music.addEventListener('pause', syncMusicBtn);
+syncMusicBtn();                 // paused, crossed out, before the first tap
+
+/* ---------- theme toggle ----------
+   The palette was already chosen in <head>; this only flips it and remembers.
+   Once a guest picks a theme their choice sticks, even if the phone later
+   switches itself over at sunset - an explicit tap outranks the system. */
+const syncThemeBtn = () => {
+  const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+  const label = dark ? 'Switch to light theme' : 'Switch to dark theme';
+  themeBtn.setAttribute('aria-pressed', dark ? 'true' : 'false');
+  themeBtn.setAttribute('aria-label', label);
+  themeBtn.title = dark ? 'Light theme' : 'Dark theme';
+};
+
+themeBtn.addEventListener('click', () => {
+  const dark = document.documentElement.getAttribute('data-theme') !== 'dark';
+  if (dark) document.documentElement.setAttribute('data-theme', 'dark');
+  else      document.documentElement.removeAttribute('data-theme');
+  try { localStorage.setItem('qz-theme', dark ? 'dark' : 'light'); } catch(e){/* private mode */}
+  syncThemeBtn();
+});
+syncThemeBtn();
+
+/* ---------- floating hearts ---------- */
+(function hearts(){
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  for (let i = 0; i < 6; i++){
+    const h = document.createElement('span');
+    h.className = 'heart';
+    h.textContent = '❥';
+    h.style.left = (8 + Math.random() * 84) + '%';
+    h.style.animationDuration = (9 + Math.random() * 7) + 's';
+    h.style.animationDelay = (Math.random() * 10) + 's';
+    h.style.fontSize = (13 + Math.random() * 10) + 'px';
+    document.body.appendChild(h);
+  }
+})();
+
+/* ---------- scroll-in reveals ---------- */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+}, { threshold: 0.18 });
+document.querySelectorAll('.fade').forEach(el => io.observe(el));
+
+/* ----------------------------------------------------------------
+   Party popper. One full-screen canvas is created on first use and
+   reused for every burst; the loop stops itself once the last piece
+   has fallen, so nothing runs while the page sits idle.
+   ---------------------------------------------------------------- */
+const popper = (function(){
+  const COLORS = ['#DFBE8C','#F3DFB6','#B49B7F','#66000C','#530D13','#E5A79F','#EAE3D0'];
+  let canvas, ctx, parts = [], running = false;
+
+  function size(){
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = innerWidth * dpr; canvas.height = innerHeight * dpr;
+    canvas.style.width = innerWidth + 'px'; canvas.style.height = innerHeight + 'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+  function ready(){
+    if (canvas) return;
+    canvas = document.createElement('canvas');
+    canvas.id = 'confetti';
+    document.body.appendChild(canvas);
+    ctx = canvas.getContext('2d');
+    size();
+    window.addEventListener('resize', size);
+  }
+
+  /* one cannon: `dir` is the aim in radians (-PI/2 is straight up),
+     `spread` how wide the cone opens, `power` the muzzle speed */
+  function burst(x, y, count, dir, spread, power){
+    for (let i = 0; i < count; i++){
+      const a = dir + (Math.random() - .5) * spread;
+      const v = power * (.5 + Math.random() * .7);
+      parts.push({
+        x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v,
+        w: 5 + Math.random() * 6, h: 8 + Math.random() * 8,
+        rot: Math.random() * 6.28, vr: (Math.random() - .5) * .34,
+        flip: Math.random() * 6.28, vf: .12 + Math.random() * .18,
+        col: COLORS[(Math.random() * COLORS.length) | 0],
+        round: Math.random() < .26,
+        life: 0, ttl: 105 + Math.random() * 75
+      });
+    }
+  }
+
+  function frame(){
+    ctx.clearRect(0,0,innerWidth,innerHeight);
+    for (let i = parts.length - 1; i >= 0; i--){
+      const p = parts[i];
+      p.vy += .32;                       // gravity
+      p.vx *= .985; p.vy *= .985;        // air drag
+      p.x += p.vx; p.y += p.vy;
+      p.rot += p.vr; p.flip += p.vf; p.life++;
+      if (p.life > p.ttl || p.y > innerHeight + 40){ parts.splice(i,1); continue; }
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, Math.min(1, (p.ttl - p.life) / 38));
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
+      ctx.fillStyle = p.col;
+      if (p.round){
+        ctx.beginPath(); ctx.arc(0,0,p.w * .42,0,Math.PI*2); ctx.fill();
+      } else {
+        // squashing on one axis reads as a flat ribbon tumbling in the air
+        ctx.scale(1, Math.max(.12, Math.abs(Math.cos(p.flip))));
+        ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+      }
+      ctx.restore();
+    }
+    if (parts.length) requestAnimationFrame(frame);
+    else { running = false; ctx.clearRect(0,0,innerWidth,innerHeight); }
+  }
+
+  return function fire(el){
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    ready();
+    const r = el.getBoundingClientRect();
+    const cx = r.left + r.width/2, cy = r.top + r.height/2;
+
+    burst(cx, cy, 48, 0, Math.PI*2, 9);                            // the seal itself bursting
+    burst(r.left + 6,  r.bottom - 4, 34, -Math.PI/3,   .55, 15);   // left cannon,  up-right
+    burst(r.right - 6, r.bottom - 4, 34, -2*Math.PI/3, .55, 15);   // right cannon, up-left
+    // a second, softer round so the shower does not end all at once
+    setTimeout(() => {
+      burst(cx, r.top + 10, 26, -Math.PI/2, 1.5, 11);
+      if (!running){ running = true; requestAnimationFrame(frame); }
+    }, 190);
+
+    if (!running){ running = true; requestAnimationFrame(frame); }
+  };
+})();
+
+/* ---------- scratch coins (rose-gold foil) ---------- */
+document.querySelectorAll('.coin').forEach(coin => {
+  const canvas = coin.querySelector('canvas');
+  const ctx = canvas.getContext('2d');
+  let revealed = false, drawing = false, strokes = 0, needed = 26;
+
+  function paint(){
+    const dpr = window.devicePixelRatio || 1;
+    const s = coin.clientWidth;
+    canvas.width = s * dpr; canvas.height = s * dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.globalCompositeOperation = 'source-over';
+    const g = ctx.createLinearGradient(0,0,s,s);
+    g.addColorStop(0,'#EADAC1'); g.addColorStop(.35,'#C09077');
+    g.addColorStop(.55,'#EADAC1'); g.addColorStop(.8,'#8E4A42');
+    g.addColorStop(1,'#621F21');
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.arc(s/2,s/2,s/2,0,Math.PI*2); ctx.fill();
+    ctx.strokeStyle = 'rgba(98,31,33,.6)'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.arc(s/2,s/2,s/2-1.5,0,Math.PI*2); ctx.stroke();
+    strokes = 0;
+    // enough strokes to have plausibly covered the seal
+    needed = Math.max(26, Math.round(s * s / 340));
+  }
+
+  function scratch(x,y){
+    const r = canvas.getBoundingClientRect();
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.beginPath();
+    ctx.arc(x-r.left, y-r.top, 15, 0, Math.PI*2);
+    ctx.fill();
+    if (++strokes > needed) finish();
+  }
+
+  function finish(){
+    if (revealed) return;
+    revealed = true;
+    canvas.classList.add('done');
+    coin.classList.add('popped');
+    popper(coin);
+    // the wax seal is what unlocks the countdown further down the page
+    if (coin.classList.contains('coin-seal')) document.body.classList.add('date-revealed');
+  }
+
+  canvas.addEventListener('pointerdown', e => { drawing = true; scratch(e.clientX, e.clientY); });
+  canvas.addEventListener('pointermove', e => { if (drawing && !revealed) scratch(e.clientX, e.clientY); });
+  window.addEventListener('pointerup', () => drawing = false);
+  window.addEventListener('resize', () => { if (!revealed) paint(); });
+  paint();
+});
+
+/* ----------------------------------------------------------------
+   Countdown before the Nikah; once it passes, the same grid counts
+   up and the page switches to "forever" mode.
+   ---------------------------------------------------------------- */
+(function initCountdown(){
+  const target = new Date(CONFIG.dateTime).getTime();
+  const D = $('cdD'), H = $('cdH'), M = $('cdM'), S = $('cdS');
+  const pad = n => String(n).padStart(2,'0');
+  let forever = null;
+
+  function tick(){
+    const diff = target - Date.now();
+    const past = diff <= 0;
+
+    if (past !== forever){                  // crossed the Nikah, or first run
+      forever = past;
+      document.body.classList.toggle('forever', past);
+      if (past) buildJourney();
+    }
+
+    const d = Math.abs(past ? -diff : diff);
+    D.textContent = pad(Math.floor(d / 864e5));
+    H.textContent = pad(Math.floor(d / 36e5) % 24);
+    M.textContent = pad(Math.floor(d / 6e4) % 60);
+    S.textContent = pad(Math.floor(d / 1e3) % 60);
+    setTimeout(tick, 1000);
+  }
+
+  /* milestones reached so far, plus the next one still to come */
+  function buildJourney(){
+    const list = $('journeyList');
+    if (!list || list.childElementCount) return;
+
+    const daysTogether = Math.floor((Date.now() - target) / 864e5) + 1;
+    const years = Math.floor(daysTogether / 365.25);
+    const items = CONFIG.milestones.slice();
+
+    for (let y = 1; y <= years + 1; y++){
+      items.push({
+        day:   Math.round(y * 365.25),
+        art:   CONFIG.anniversary.art,
+        title: CONFIG.anniversary.title.replace('%s', ordinal(y)),
+        note:  CONFIG.anniversary.note,
+      });
+    }
+
+    items.sort((a,b) => a.day - b.day);
+    // everything reached, then the single next one as a locked preview
+    const reached = items.filter(m => daysTogether >= m.day);
+    const next    = items.find(m => daysTogether < m.day);
+    const shown   = next ? reached.concat([next]) : reached;
+
+    list.innerHTML = shown.map(m => `
+      <div class="milestone fade${daysTogether >= m.day ? '' : ' locked'}">
+        <div class="milestone-art" aria-hidden="true">${m.art}</div>
+        <div>
+          <div class="milestone-title">${esc(m.title)}</div>
+          <div class="milestone-note">${esc(m.note)}</div>
+        </div>
+      </div>`).join('');
+    list.querySelectorAll('.fade').forEach(el => io.observe(el));
+  }
+
+  function ordinal(n){
+    const s = ['th','st','nd','rd'], v = n % 100;
+    return n + (s[(v - 20) % 10] || s[v] || s[0]);
+  }
+
+  tick();
+})();
+</script>
+<script>
+window.addEventListener('load', () => setTimeout(() => {
+  const q = new URLSearchParams(location.search);
+  try { dismissCover(); } catch(e) {}
+  if (q.get('theme')) document.documentElement.setAttribute('data-theme', q.get('theme'));
+  const h = document.querySelector('.hero-names');
+  document.body.innerHTML = '';
+  document.body.style.cssText = 'margin:0;display:grid;place-items:center;height:100vh;background:var(--cream)';
+  document.body.appendChild(h); h.classList.add('in');
+  h.style.animation = 'name-sheen 6.5s ease-in-out ' + q.get('t') + 's infinite';
+  h.style.animationPlayState = 'paused';
+}, 700));
+</script>
+</body>
+</html>
