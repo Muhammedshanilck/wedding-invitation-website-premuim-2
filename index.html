@@ -7,6 +7,64 @@
 <meta name="description" content="With the blessings of Allah, we invite you to celebrate our Nikah and Valima.">
 
 <!-- ============================================================
+  LINK PREVIEW (Open Graph + Twitter Card)
+  What WhatsApp, Facebook, Telegram, iMessage and X show when the
+  URL is shared.
+
+  >>> ONE THING TO EDIT: the --site-url-- below. <<<
+  Every absolute URL here is built from it. Crawlers do NOT run
+  JavaScript, so these cannot be assembled at runtime - the full
+  https:// URL has to be sitting in the HTML as plain text. A
+  relative path like /assets/... is ignored by WhatsApp.
+
+  The value below is the domain Vercel derives from the GitHub repo
+  name. If the deployed site ends up on a different domain - a
+  custom one, or a different Vercel project name - change it in ALL
+  FOUR places it appears (og:url, og:image, og:image:secure_url,
+  twitter:image) and in the canonical link.
+  ============================================================ -->
+
+<link rel="canonical" href="https://wedding-invitation-website-premuim-2.vercel.app/">
+
+<meta property="og:type"        content="website">
+<meta property="og:site_name"   content="Zain &amp; Qurrath">
+<meta property="og:locale"      content="en_US">
+<meta property="og:url"         content="https://wedding-invitation-website-premuim-2.vercel.app/">
+<meta property="og:title"       content="Zain &amp; Qurrath">
+<meta property="og:description" content="Wedding Invitation - Nikah, 3 September 2026 | Valima, 6 September 2026">
+<meta property="og:image"       content="https://wedding-invitation-website-premuim-2.vercel.app/assets/images/social-preview.jpg">
+<!-- secure_url is what older WhatsApp and Facebook crawlers actually read -->
+<meta property="og:image:secure_url" content="https://wedding-invitation-website-premuim-2.vercel.app/assets/images/social-preview.jpg">
+<meta property="og:image:type"  content="image/jpeg">
+<meta property="og:image:alt"   content="Wedding invitation of Zain and Qurrath">
+
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="Zain &amp; Qurrath">
+<meta name="twitter:description" content="Wedding Invitation - Nikah, 3 September 2026 | Valima, 6 September 2026">
+<meta name="twitter:image"       content="https://wedding-invitation-website-premuim-2.vercel.app/assets/images/social-preview.jpg">
+<meta name="twitter:image:alt"   content="Wedding invitation of Zain and Qurrath">
+
+<!-- ============================================================
+  SITE ICON - the ZQ monogram
+  favicon.ico sits at the SITE ROOT, not in assets/, because browsers
+  fetch /favicon.ico by path alone - for history entries, bookmark
+  lists and anything else that never parses this <head>. It carries
+  16, 32 and 48px frames in the one file. Everything else is declared
+  here and lives in assets/favicon/.
+
+  The 16 and 32px PNGs are cropped in tighter on the ZQ letters than
+  the large icons are: the full medallion (ring, lantern, florals)
+  turns to mush at tab size, and the monogram is the part that has to
+  survive. 180px and up show the whole medallion.
+  ============================================================ -->
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="assets/favicon/favicon-48x48.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+<link rel="manifest" href="assets/favicon/site.webmanifest">
+
+<!-- ============================================================
   WEDDING INVITATION - Qurrat & Zain
   Palette + typography matched to reference recording.
   Corner florals are inline SVG; the hero crown and the chandelier are
@@ -19,10 +77,16 @@
   Assets (the page still works if the missing ones stay missing):
     assets/audio/nasheed.mp3   background nasheed  [present]
     assets/videos/opening.mp4  intro video         [present]
+    assets/images/cover-poster.jpg  frame 0 of that video, shown until it
+      plays - REGENERATE THIS if opening.mp4 is ever replaced [present]
     assets/images/chandelier.png   hero chandelier  [present]
-    assets/images/floral-crown.png hero top border  [present]
+    assets/images/floral-crown-2.png hero top border [present]
+    assets/favicon/*             site icon, ZQ monogram [see <head>]
     assets/images/nikah.jpg    Nikah venue photo   (replaces sketch)
     assets/images/valima.jpg   Valima venue photo  (replaces sketch)
+    assets/images/social-preview.jpg  the invitation artwork used as the
+      link preview when the URL is shared. Referenced ONLY by the Open
+      Graph tags above, never drawn on the page itself.
 
   The nasheed is "Wedding Nasheed - Muhammad Al Muqit (Slowed Reverb)",
   renamed to nasheed.mp3 so the URL needs no escaping.
@@ -133,9 +197,23 @@
 
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
+/* Stops the rubber-band bounce past the top and bottom of the page. Without
+   it, dragging past the end on a phone pulls the whole card away and shows
+   the ground behind it - which is --page-edge, a near-black strip meant only
+   for the gutters beside the 480px card on a desktop. It reads as the site
+   having run out. Chrome on Android loses pull-to-refresh as a side effect,
+   which on an invitation is a gain: no more reloading it by accident. */
+html{overscroll-behavior-y:none}
 body{
   font-family:var(--sans);font-weight:300;
   color:var(--maroon);background:var(--page-edge);line-height:1.8;
+}
+/* overscroll-behavior needs iOS 16+, so older iPhones still bounce. Below
+   480px the card fills the width and there are no gutters to preserve, so
+   the ground can simply BE the page colour - then a bounce reveals more
+   cream (or more near-black in the dark theme) instead of a dark seam. */
+@media (max-width:480px){
+  body{background:var(--cream)}
 }
 .page{
   max-width:480px;margin:0 auto;background:var(--cream);
@@ -269,7 +347,7 @@ body.opened .heart{animation:floatUp linear infinite}
 #skipBtn:focus-visible{outline:2px solid var(--burgundy);outline-offset:3px}
 
 /* ---------- floating round buttons: music + theme ---------- */
-#musicBtn,#themeBtn{
+#musicBtn,#themeBtn,#langBtn{
   position:fixed;right:16px;z-index:40;
   width:46px;height:46px;border-radius:50%;border:none;
   background:var(--btn-ink);color:var(--burgundy);cursor:pointer;
@@ -279,9 +357,17 @@ body.opened .heart{animation:floatUp linear infinite}
 }
 #musicBtn{bottom:16px}
 #themeBtn{bottom:70px}          /* stacked above the music button */
-#musicBtn.show,#themeBtn.show{display:flex}
+#langBtn{bottom:124px}          /* and the language above that */
+#musicBtn.show,#themeBtn.show,#langBtn.show{display:flex}
 #musicBtn svg,#themeBtn svg{width:20px;height:20px}
-#musicBtn:focus-visible,#themeBtn:focus-visible{outline:2px solid var(--burgundy);outline-offset:3px}
+#musicBtn:focus-visible,#themeBtn:focus-visible,#langBtn:focus-visible{outline:2px solid var(--burgundy);outline-offset:3px}
+/* The language button says the language you would GET, written in that
+   language - the one label a guest can read without knowing the current one. */
+#langBtn{
+  font-family:var(--sans);font-weight:600;font-size:11px;
+  letter-spacing:.06em;line-height:1;padding-bottom:1px;
+}
+html[lang="ur"] #langBtn{font-size:12px;letter-spacing:.1em}
 #musicBtn.playing svg{animation:sway 1.6s ease-in-out infinite}
 @keyframes sway{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(8deg)}}
 /* Paused has to be visible at a glance. The sway alone cannot carry that: it
@@ -357,7 +443,7 @@ svg.chandelier{height:250px}   /* the drawn version needs an explicit height */
    same curve, so the heart reads as lit from within rather than resized. */
 .hero-heart{
   display:block;font-size:22px;color:var(--maroon);font-weight:400;margin:8px 0;
-  position:relative;will-change:transform;
+  will-change:transform;
   animation:heartbeat 2.4s ease-in-out infinite;
 }
 @keyframes heartbeat{
@@ -366,20 +452,6 @@ svg.chandelier{height:250px}   /* the drawn version needs an explicit height */
   16%    {transform:scale(1.02); text-shadow:0 0 8px var(--heart-glow-soft)}
   25%    {transform:scale(1.16); text-shadow:0 0 13px var(--heart-glow)}
   38%    {transform:scale(1);    text-shadow:0 0 6px var(--heart-glow-soft)}
-}
-/* a ring of light leaving the heart on the first beat and fading out well
-   before the next one, so the rest between beats stays genuinely still */
-.hero-heart::after{
-  content:'';position:absolute;left:50%;top:50%;
-  width:26px;height:26px;margin:-13px 0 0 -13px;
-  border-radius:50%;border:1px solid var(--heart-glow);
-  opacity:0;pointer-events:none;
-  animation:heart-ring 2.4s ease-out infinite;
-}
-@keyframes heart-ring{
-  0%     {transform:scale(.55);opacity:0}
-  10%    {opacity:.6}
-  50%,100%{transform:scale(2.7);opacity:0}
 }
 
 /* ---------- the names catch the light ----------
@@ -882,6 +954,80 @@ footer{padding:60px 24px 90px;text-align:center;position:relative}
   text-transform:uppercase;text-indent:.32em;color:var(--maroon-soft);
 }
 .footer-credit a{color:inherit;text-decoration:none}
+
+/* ---------- Urdu ----------
+   Not a word-swap with the English design left underneath it. Two things that
+   carry the English page actively damage Urdu:
+
+   1. LETTER-SPACING. The wide tracking that makes the Latin caps feel engraved
+      pulls a connected script apart - Urdu letters join, and spacing them is
+      the typographic equivalent of h e l l o. Every tracked rule is reset.
+   2. LEADING. Nastaliq hangs each word on a steep diagonal and needs far more
+      room between lines than a Latin serif does.
+
+   Two faces, mirroring the English pairing: Nastaliq for display, where the
+   calligraphic line belongs, and Naskh for the small print, where Nastaliq's
+   diagonal stops being readable at 10px. */
+html[lang="ur"]{
+  --urdu-display:'Noto Nastaliq Urdu', serif;
+  --urdu-body:'Noto Naskh Arabic', 'Amiri', serif;
+}
+html[lang="ur"] body{font-family:var(--urdu-body);line-height:2}
+html[lang="ur"] .title-italic,
+html[lang="ur"] .hero-names,
+html[lang="ur"] .invite-name,
+html[lang="ur"] .ceremony-name,
+html[lang="ur"] .coin-date,
+html[lang="ur"] .std-script,
+html[lang="ur"] .crossing-title,
+html[lang="ur"] .crossing-line,
+html[lang="ur"] .closing-line,
+html[lang="ur"] .since-date,
+html[lang="ur"] .venue-for,
+html[lang="ur"] .venue-loc,
+html[lang="ur"] .milestone-title,
+html[lang="ur"] .presence-copy{
+  /* Nastaliq has no italic; left as-is the browser fakes one by shearing the
+     glyphs, which wrecks a calligraphic face */
+  font-family:var(--urdu-display);font-style:normal;line-height:2.15;
+}
+html[lang="ur"] .caps,
+html[lang="ur"] .kicker,
+html[lang="ur"] .hero-names,
+html[lang="ur"] .invite-name,
+html[lang="ur"] .coin-label,
+html[lang="ur"] .std-day,
+html[lang="ur"] .count-label,
+html[lang="ur"] .ceremony-date,
+html[lang="ur"] .ceremony-hijri,
+html[lang="ur"] .ceremony-time,
+html[lang="ur"] .ceremony-note,
+html[lang="ur"] .ceremony-place b,
+html[lang="ur"] .scroll-label,
+html[lang="ur"] .footer-credit,
+html[lang="ur"] .venue-addr,
+html[lang="ur"] .cal caption,
+html[lang="ur"] .cal th,
+html[lang="ur"] .btn{
+  letter-spacing:0;text-indent:0;text-transform:none;
+}
+/* the small print needs a little more size in Naskh than in Montserrat */
+html[lang="ur"] .caps{font-size:12.5px;line-height:2.1}
+html[lang="ur"] .kicker{font-size:11.5px}
+html[lang="ur"] .count-label{font-size:11px}
+html[lang="ur"] .ceremony-date{font-size:13.5px}
+html[lang="ur"] .ceremony-note,
+html[lang="ur"] .ceremony-hijri{font-size:12px}
+html[lang="ur"] .cal th{font-size:11px}
+html[lang="ur"] .cal caption{font-size:12.5px}
+html[lang="ur"] .hero-names{font-size:38px;line-height:1.7}
+html[lang="ur"] .ceremony-name{font-size:27px}
+/* the day numbers and the countdown stay Latin digits, so they keep their own
+   face and their tabular alignment - see the numerals note in the config */
+html[lang="ur"] .cal-day,
+html[lang="ur"] .count-num,
+html[lang="ur"] .std-date{font-family:var(--serif)}
+html[lang="ur"] .count-num{font-family:var(--sans)}
 </style>
 
 <script>
@@ -904,6 +1050,21 @@ footer{padding:60px 24px 90px;text-align:center;position:relative}
                    : FOLLOW_PHONE_SETTING &&
                      matchMedia('(prefers-color-scheme: dark)').matches;
   if (dark) document.documentElement.setAttribute('data-theme', 'dark');
+})();
+
+/* ---------- language, also decided before the first paint ----------
+   Urdu is right-to-left, so this one is not just a matter of swapping words:
+   the whole document flips. Setting it here means the page is laid out RTL
+   from the first frame instead of being drawn left-to-right and then turning
+   over in front of the guest. The strings themselves are swapped in by
+   applyLanguage() further down. */
+(function(){
+  var saved = null;
+  try { saved = localStorage.getItem('qz-lang'); } catch(e){/* private mode */}
+  if (saved === 'ur'){
+    document.documentElement.setAttribute('lang', 'ur');
+    document.documentElement.setAttribute('dir', 'rtl');
+  }
 })();
 </script>
 </head>
@@ -1186,9 +1347,19 @@ footer{padding:60px 24px 90px;text-align:center;position:relative}
 <div id="overlay" role="dialog" aria-label="Wedding invitation cover">
   <div class="cover" id="coverTap">
     <!-- intro video: this is the whole cover. It plays on tap, then reveals
-         the invite. Nothing is drawn behind it as a stand-in. -->
+         the invite. Nothing is drawn behind it as a stand-in.
+
+         The poster is what makes that safe on a phone: iOS Safari will not
+         paint a video frame before playback starts, so without it the cover
+         is a black rectangle until the guest taps. The poster is frame 0 of
+         opening.mp4 at half size, letterbox INCLUDED, so the same
+         object-fit + scale(1.06) crop lands on it exactly as on the video
+         and there is no jump when playback begins.
+         muted: the file has no audio track, and muted is what lets iOS
+         decode and show it inline. -->
     <div class="cover-video" id="coverVideo">
-      <video id="introVideo" playsinline preload="auto"></video>
+      <video id="introVideo" playsinline muted preload="auto"
+             poster="assets/images/cover-poster.jpg"></video>
       <div class="video-label"><span>Tap to open your invitation</span></div>
       <button id="skipBtn" type="button">Skip &rsaquo;</button>
     </div>
@@ -1203,6 +1374,11 @@ footer{padding:60px 24px 90px;text-align:center;position:relative}
     <path class="mute-slash" d="M3.5 3.5l17 17"/>
   </svg>
 </button>
+
+<!-- The label is the language you would switch TO, written in that language:
+     "اردو" while the page is English, "EN" while it is Urdu. A flag would be
+     wrong here - Urdu is not one country - and a globe says nothing. -->
+<button id="langBtn" type="button" lang="ur" aria-label="اردو میں دیکھیں" title="اردو">اردو</button>
 
 <button id="themeBtn" type="button" aria-label="Switch to dark theme" aria-pressed="false" title="Dark theme">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
@@ -1239,40 +1415,40 @@ footer{padding:60px 24px 90px;text-align:center;position:relative}
     <svg class="fl bl"><use href="#fl-cluster"/></svg>
     <svg class="fl br"><use href="#fl-cluster"/></svg>
 
-    <div class="caps fade" style="position:relative;z-index:4">Together with<br>their families</div>
+    <div class="caps fade" data-t="hero.together" style="position:relative;z-index:4">Together with<br>their families</div>
     <h1 class="hero-names fade">
       <span id="heroGroom">Zain</span>
       <span class="hero-heart">&#9825;</span>
       <span id="heroBride">Qurrat</span>
     </h1>
-    <p class="caps fade">
+    <p class="caps fade" data-t="hero.invite">
       We would like to invite you to<br>
       celebrate with us the most<br>
       special day of our lives
     </p>
     <div class="scroll-cue fade">
       <div class="scroll-pill"></div>
-      <div class="scroll-label">Scroll to unfold</div>
+      <div class="scroll-label" data-t="hero.scroll">Scroll to unfold</div>
     </div>
   </section>
 
   <!-- ======================= BISMILLAH + FAMILY INVITE ======================= -->
   <section id="bismillah">
     <p class="bismillah-ar fade">&#1576;&#1616;&#1587;&#1618;&#1605;&#1616; &#1575;&#1604;&#1604;&#1617;&#1648;&#1607;&#1616; &#1575;&#1604;&#1585;&#1617;&#1614;&#1581;&#1618;&#1605;&#1648;&#1606;&#1616; &#1575;&#1604;&#1585;&#1617;&#1614;&#1581;&#1616;&#1610;&#1618;&#1605;&#1616;</p>
-    <p class="caps fade" style="margin-top:14px">
+    <p class="caps fade" data-t="bismillah.line" style="margin-top:14px">
       In the name of Allah<br>the Most Gracious and the Most Merciful
     </p>
     <div class="invite-copy fade">
-      <p class="kicker" style="margin-top:34px">The pleasure of your company</p>
+      <p class="kicker" data-t="invite.pleasure" style="margin-top:34px">The pleasure of your company</p>
       <p class="caps" id="invitedBy">With the blessings of Allah</p>
 
-      <p class="kicker" style="margin-top:34px">The Groom</p>
+      <p class="kicker" data-t="invite.groom" style="margin-top:34px">The Groom</p>
       <span class="invite-name" id="groomFull">Syed Zain Ul Abdin</span>
       <p class="caps" id="groomFamily">S/o Syed Nadeem</p>
 
-      <span class="invite-name" style="font-weight:400;letter-spacing:.4em;margin-top:30px">With</span>
+      <span class="invite-name" data-t="invite.with" style="font-weight:400;letter-spacing:.4em;margin-top:30px">With</span>
 
-      <p class="kicker" style="margin-top:22px">The Bride</p>
+      <p class="kicker" data-t="invite.bride" style="margin-top:22px">The Bride</p>
       <span class="invite-name" id="brideFull">Syeda Qurrat Ul Ain</span>
       <p class="caps" id="brideFamily">D/o Syed Ather Hussaini</p>
 
@@ -1291,16 +1467,16 @@ footer{padding:60px 24px 90px;text-align:center;position:relative}
 
   <!-- ======================= REVEAL / SCRATCH / SAVE THE DATE ======================= -->
   <section id="date">
-    <p class="kicker fade">A little surprise</p>
-    <h2 class="title-italic fade">Scratch the Seal</h2>
-    <p class="caps fade" style="margin-top:22px">Rub the wax seal to reveal our date</p>
+    <p class="kicker fade" data-t="date.kicker">A little surprise</p>
+    <h2 class="title-italic fade" data-t="date.title">Scratch the Seal</h2>
+    <p class="caps fade" data-t="date.hint" style="margin-top:22px">Rub the wax seal to reveal our date</p>
 
     <div class="coins fade">
       <div class="coin coin-seal">
         <div class="coin-under">
-          <div class="coin-label" id="sealTop">Nikah</div>
+          <div class="coin-label" id="sealTop" data-t="seal.top">Nikah</div>
           <div class="coin-date" id="sealDate">Thursday &middot; 03 September 2026</div>
-          <div class="coin-label" id="sealBottom">Save the date</div>
+          <div class="coin-label" id="sealBottom" data-t="seal.bottom">Save the date</div>
         </div>
         <canvas class="scratch"></canvas>
       </div>
@@ -1308,11 +1484,11 @@ footer{padding:60px 24px 90px;text-align:center;position:relative}
 
     <div class="std-wrap fade">
       <div class="std-panel">
-        <div class="std-script">Save the<br>date</div>
+        <div class="std-script" data-t="date.script">Save the<br>date</div>
         <div class="std-date" id="stdDate">03.09.2026</div>
         <div class="std-day" id="stdDay">Thursday</div>
       </div>
-      <a class="btn fade" id="stdMapLink" href="#" target="_blank" rel="noopener">View Location</a>
+      <a class="btn fade" id="stdMapLink" data-t="date.map" href="#" target="_blank" rel="noopener">View Location</a>
     </div>
   </section>
 
@@ -1320,31 +1496,31 @@ footer{padding:60px 24px 90px;text-align:center;position:relative}
   <section id="countdown">
     <!-- before the Nikah -->
     <div class="before-only">
-      <p class="kicker fade">Counting the moments</p>
-      <h2 class="title-italic fade" style="font-size:34px">Until we say Qubool</h2>
+      <p class="kicker fade" data-t="cd.kicker">Counting the moments</p>
+      <h2 class="title-italic fade" data-t="cd.title" style="font-size:34px">Until we say Qubool</h2>
     </div>
 
     <!-- after the Nikah -->
     <div class="forever-only">
-      <p class="kicker fade">Since we said Qubool</p>
-      <h2 class="title-italic fade" style="font-size:34px">Our Forever Began</h2>
-      <p class="caps fade" style="margin-top:24px">Together since</p>
+      <p class="kicker fade" data-t="cd.kickerAfter">Since we said Qubool</p>
+      <h2 class="title-italic fade" data-t="cd.titleAfter" style="font-size:34px">Our Forever Began</h2>
+      <p class="caps fade" data-t="cd.since" style="margin-top:24px">Together since</p>
       <p class="since-date fade" id="sinceDate">03 September 2026</p>
-      <p class="caps fade" style="margin-top:32px">Together For</p>
+      <p class="caps fade" data-t="cd.for" style="margin-top:32px">Together For</p>
     </div>
 
     <div class="count-grid fade">
-      <div><div class="count-num" id="cdD">00</div><div class="count-label">Days</div></div>
-      <div><div class="count-num" id="cdH">00</div><div class="count-label">Hours</div></div>
-      <div><div class="count-num" id="cdM">00</div><div class="count-label">Minutes</div></div>
-      <div><div class="count-num" id="cdS">00</div><div class="count-label">Secs</div></div>
+      <div><div class="count-num" id="cdD">00</div><div class="count-label" data-t="cd.days">Days</div></div>
+      <div><div class="count-num" id="cdH">00</div><div class="count-label" data-t="cd.hours">Hours</div></div>
+      <div><div class="count-num" id="cdM">00</div><div class="count-label" data-t="cd.minutes">Minutes</div></div>
+      <div><div class="count-num" id="cdS">00</div><div class="count-label" data-t="cd.secs">Secs</div></div>
     </div>
   </section>
 
   <!-- ======================= CEREMONIES ======================= -->
   <section id="ceremonies">
-    <p class="kicker fade">We celebrate</p>
-    <h2 class="title-italic fade">Our Ceremonies</h2>
+    <p class="kicker fade" data-t="cer.kicker">We celebrate</p>
+    <h2 class="title-italic fade" data-t="cer.title">Our Ceremonies</h2>
 
     <!-- The month sits directly on top of the cards it belongs to, and the two
          share ONE positioned box: the flow lines are drawn into that box and
@@ -1358,45 +1534,46 @@ footer{padding:60px 24px 90px;text-align:center;position:relative}
 
   <!-- ======================= VENUES ======================= -->
   <section id="venue">
-    <p class="kicker fade">Where hearts gather</p>
-    <h2 class="title-italic fade">The Venues</h2>
+    <p class="kicker fade" data-t="ven.kicker">Where hearts gather</p>
+    <h2 class="title-italic fade" data-t="ven.title">The Venues</h2>
     <div class="venues" id="venueList"></div>
-    <p class="venue-hint fade" style="margin-top:40px">&#9650; Tap a venue to open it in Google Maps</p>
+    <p class="venue-hint fade" data-t="ven.hint" style="margin-top:40px">&#9650; Tap a venue to open it in Google Maps</p>
   </section>
 
   <!-- ======================= OUR JOURNEY (forever mode) ======================= -->
   <section id="journey" class="forever-only">
-    <p class="kicker fade">Every step so far</p>
-    <h2 class="title-italic fade">Our Journey</h2>
+    <p class="kicker fade" data-t="jr.kicker">Every step so far</p>
+    <h2 class="title-italic fade" data-t="jr.title">Our Journey</h2>
     <div class="journey" id="journeyList"></div>
   </section>
 
   <!-- ======================= PRESENCE ======================= -->
   <section id="presence">
-    <p class="kicker fade">Your presence is our gift</p>
-    <h2 class="title-italic fade">Honour Us With Your Company</h2>
-    <p class="presence-copy fade" id="presenceCopy">
+    <p class="kicker fade" data-t="pr.kicker">Your presence is our gift</p>
+    <h2 class="title-italic fade" data-t="pr.title">Honour Us With Your Company</h2>
+    <p class="presence-copy fade" id="presenceCopy" data-t="pr.copy">
       By the grace of Allah, our hearts have found each other. We would be
       honoured by your presence and prayers as we begin this blessed journey
       together.
     </p>
-    <p class="hashtag fade" id="hashtag">#QurratWedsZain</p>
+    <!-- the hashtag stays Latin in both languages, so it is isolated too -->
+    <p class="hashtag fade" id="hashtag" dir="ltr">#QurratWedsZain</p>
   </section>
 
   <!-- ======================= FOOTER ======================= -->
   <footer>
     <p class="footer-ar fade">&#1573;&#1606;&#1618; &#1588;&#1614;&#1575;&#1569;&#1614; &#1575;&#1604;&#1604;&#1617;&#1614;&#1607;&#1615;</p>
-    <p class="caps fade" style="margin-top:10px">Insha Allah</p>
+    <p class="caps fade" data-t="ft.insha" style="margin-top:10px">Insha Allah</p>
 
     <div class="forever-only" style="margin-top:34px">
-      <p class="crossing-title fade" id="crossingTitle">Alhamdulillah &#129293;</p>
-      <p class="crossing-line fade" id="crossingLine">The Countdown Ended. Our Forever Began.</p>
-      <p class="closing-note fade" id="closingNote">
+      <p class="crossing-title fade" id="crossingTitle" data-t="ft.crossTitle">Alhamdulillah &#129293;</p>
+      <p class="crossing-line fade" id="crossingLine" data-t="ft.crossLine">The Countdown Ended. Our Forever Began.</p>
+      <p class="closing-note fade" id="closingNote" data-t="ft.crossNote">
         Alhamdulillah for every moment we&rsquo;ve shared, and every moment yet to come.
       </p>
     </div>
 
-    <p class="closing-line fade before-only" id="closingDua" style="margin-top:34px">
+    <p class="closing-line fade before-only" id="closingDua" data-t="ft.dua" style="margin-top:34px">
       May Allah bless this union and unite them in goodness. Ameen.
     </p>
     <svg class="footer-flowers fade" viewBox="0 0 110 56" fill="none" aria-hidden="true">
@@ -1410,7 +1587,7 @@ footer{padding:60px 24px 90px;text-align:center;position:relative}
         <circle cx="55" cy="24" r="2"/><circle cx="38" cy="33" r="1.6"/><circle cx="72" cy="33" r="1.6"/>
       </g>
     </svg>
-    <p class="footer-credit hashtag fade" id="footerHashtag">#QurratWedsZain</p>
+    <p class="footer-credit hashtag fade" id="footerHashtag" dir="ltr">#QurratWedsZain</p>
   </footer>
 
 </div>
@@ -1523,41 +1700,307 @@ const CONFIG = {
                  note: "May Allah continue to bless our journey." },
 };
 
+/* ═══════════════════════════════════════════════════════════════════
+   LANGUAGE
+   ═══════════════════════════════════════════════════════════════════
+   English is the source. CONFIG above holds its content and the markup carries
+   its wording as real text, so the invitation reads correctly before a line of
+   this script runs. Urdu is expressed as a DIFF - only the strings that differ -
+   so an address, a maps link or a photo is written once and both languages get
+   it. Add a third language by adding one more entry here.
+
+   Two deliberate exceptions to translating everything:
+     - Street addresses stay in English. They are what a guest reads out to a
+       driver or types into Maps.
+     - Digits stay Western (3, 11:30). Standard in Urdu print here, and it keeps
+       the month grid's columns aligned under font-variant-numeric.
+
+   The Urdu below was written for this invitation. Have a native speaker read it
+   before you send it out - the names above all. */
+const I18N = {
+  en: {
+    dir: 'ltr',
+    docTitle: 'Qurrat & Zain — Wedding Invitation',
+    /* the button offers the OTHER language, written in that language */
+    button: 'اردو', buttonLabel: 'اردو میں دیکھیں', buttonTitle: 'اردو',
+    t: {
+      'hero.together':  'Together with\ntheir families',
+      'hero.invite':    'We would like to invite you to\ncelebrate with us the most\nspecial day of our lives',
+      'hero.scroll':    'Scroll to unfold',
+      'bismillah.line': 'In the name of Allah\nthe Most Gracious and the Most Merciful',
+      'invite.pleasure':'The pleasure of your company',
+      'invite.groom':   'The Groom',
+      'invite.with':    'With',
+      'invite.bride':   'The Bride',
+      'date.kicker':    'A little surprise',
+      'date.title':     'Scratch the Seal',
+      'date.hint':      'Rub the wax seal to reveal our date',
+      'seal.top':       'Nikah',
+      'seal.bottom':    'Save the date',
+      'date.script':    'Save the\ndate',
+      'date.map':       'View Location',
+      'cd.kicker':      'Counting the moments',
+      'cd.title':       'Until we say Qubool',
+      'cd.kickerAfter': 'Since we said Qubool',
+      'cd.titleAfter':  'Our Forever Began',
+      'cd.since':       'Together since',
+      'cd.for':         'Together For',
+      'cd.days':        'Days',
+      'cd.hours':       'Hours',
+      'cd.minutes':     'Minutes',
+      'cd.secs':        'Secs',
+      'cer.kicker':     'We celebrate',
+      'cer.title':      'Our Ceremonies',
+      'ven.kicker':     'Where hearts gather',
+      'ven.title':      'The Venues',
+      'ven.hint':       '▲ Tap a venue to open it in Google Maps',
+      'ven.btn':        'Get directions',
+      'jr.kicker':      'Every step so far',
+      'jr.title':       'Our Journey',
+      'pr.kicker':      'Your presence is our gift',
+      'pr.title':       'Honour Us With Your Company',
+      'pr.copy':        'By the grace of Allah, our hearts have found each other. ' +
+                        'We would be honoured by your presence and prayers as we ' +
+                        'begin this blessed journey together.',
+      'ft.insha':       'Insha Allah',
+      'ft.crossTitle':  'Alhamdulillah 💝',
+      'ft.crossLine':   'The Countdown Ended. Our Forever Began.',
+      'ft.crossNote':   'Alhamdulillah for every moment we’ve shared, and every moment yet to come.',
+      'ft.dua':         'May Allah bless this union and unite them in goodness. Ameen.',
+      /* the three floating buttons: read aloud, and shown on hover */
+      'btn.toDark':     'Switch to dark theme',
+      'btn.toLight':    'Switch to light theme',
+      'btn.dark':       'Dark theme',
+      'btn.light':      'Light theme',
+      'btn.play':       'Play music',
+      'btn.pause':      'Pause music',
+    },
+  },
+
+  ur: {
+    dir: 'rtl',
+    docTitle: 'قرۃ العین و زین — دعوت نامہ',
+    button: 'EN', buttonLabel: 'View in English', buttonTitle: 'English',
+    t: {
+      'hero.together':  'اپنے اہلِ خانہ\nکے ہمراہ',
+      'hero.invite':    'ہم آپ کو دعوت دیتے ہیں کہ\nہماری زندگی کے سب سے خاص دن\nمیں ہمارے ساتھ شریک ہوں',
+      'hero.scroll':    'دعوت نامہ کھولنے کے لیے نیچے جائیں',
+      'bismillah.line': 'اللہ کے نام سے\nجو نہایت مہربان، رحم فرمانے والا ہے',
+      'invite.pleasure':'آپ کی شرکت کی سعادت',
+      'invite.groom':   'دولہا',
+      'invite.with':    'بہمراہ',
+      'invite.bride':   'دلہن',
+      'date.kicker':    'ایک ننھی سی خوشخبری',
+      'date.title':     'مہر کھرچیے',
+      'date.hint':      'تاریخ دیکھنے کے لیے مہر کو کھرچیں',
+      'seal.top':       'نکاح',
+      'seal.bottom':    'تاریخ یاد رکھیں',
+      'date.script':    'تاریخ\nیاد رکھیں',
+      'date.map':       'مقام دیکھیں',
+      'cd.kicker':      'لمحے گنے جا رہے ہیں',
+      'cd.title':       'جب تک ہم قبول کہیں',
+      'cd.kickerAfter': 'جب سے ہم نے قبول کہا',
+      'cd.titleAfter':  'ہمارا ہمیشہ شروع ہوا',
+      'cd.since':       'ایک ساتھ، از',
+      'cd.for':         'ساتھ گزرے',
+      'cd.days':        'دن',
+      'cd.hours':       'گھنٹے',
+      'cd.minutes':     'منٹ',
+      'cd.secs':        'سیکنڈ',
+      'cer.kicker':     'ہماری خوشیاں',
+      'cer.title':      'ہماری تقریبات',
+      'ven.kicker':     'جہاں دل جمع ہوتے ہیں',
+      'ven.title':      'مقامات',
+      'ven.hint':       '▲ مقام پر ٹیپ کریں، گوگل میپس کھل جائے گا',
+      'ven.btn':        'راستہ دیکھیں',
+      'jr.kicker':      'اب تک کا ہر قدم',
+      'jr.title':       'ہمارا سفر',
+      'pr.kicker':      'آپ کی آمد ہی ہمارا تحفہ ہے',
+      'pr.title':       'اپنی شرکت سے ہمیں عزت بخشیں',
+      'pr.copy':        'اللہ کے فضل سے ہمارے دل ایک دوسرے کو پا چکے ہیں۔ اس مبارک ' +
+                        'سفر کے آغاز پر ہم آپ کی شرکت اور دعاؤں کے طلبگار ہیں۔',
+      'ft.insha':       'ان شاء اللہ',
+      'ft.crossTitle':  'الحمدللہ 💝',
+      'ft.crossLine':   'گنتی مکمل ہوئی۔ ہمارا ہمیشہ شروع ہوا۔',
+      'ft.crossNote':   'ہر گزرے لمحے پر الحمدللہ، اور ہر آنے والے لمحے پر بھی۔',
+      'ft.dua':         'اللہ تعالیٰ اس رشتے میں برکت عطا فرمائے اور انہیں خیر کے ساتھ جوڑے رکھے۔ آمین',
+      'btn.toDark':     'گہرا انداز اپنائیں',
+      'btn.toLight':    'روشن انداز اپنائیں',
+      'btn.dark':       'گہرا انداز',
+      'btn.light':      'روشن انداز',
+      'btn.play':       'موسیقی چلائیں',
+      'btn.pause':      'موسیقی روکیں',
+    },
+    /* only what differs from CONFIG - everything else is inherited */
+    content: {
+      bride: 'قرۃ العین',
+      groom: 'زین',
+      brideFull: 'سیدہ قرۃ العین',
+      groomFull: 'سید زین العابدین',
+      brideFamily: 'دختر سید اطہر حسینی',
+      groomFamily: 'پسر سید ندیم',
+      invitedBy: 'اللہ کے فضل و کرم سے',
+      inviteLine: 'اپنے اہلِ خانہ کے ہمراہ آپ سے شرکت کی درخواست کرتے ہیں، ' +
+                  'جب وہ زندگی بھر کے اس سفر کا آغاز کر رہے ہیں۔',
+      dayLabel: 'جمعرات',
+      sealDate: 'جمعرات · 03 ستمبر 2026',
+      sinceDate: '03 ستمبر 2026',
+      ceremonies: [
+        { name: 'تقریبِ نکاح', date: 'جمعرات، 3 ستمبر 2026',
+          hijri: '21 ربیع الاول', time: 'صبح 11:30',
+          note: 'بعد ازاں ظہرانہ', venue: 'قبا کنونشن ہال' },
+        { name: 'ولیمہ / تقریبِ شادی', date: 'اتوار، 6 ستمبر 2026',
+          time: 'دوپہر 1:00', note: 'بعد ازاں ظہرانہ', venue: 'سٹار پیلس' },
+      ],
+      calendar: {
+        /* the marked labels must match the ceremony names above: that is how a
+           flow line finds the ceremony its ringed day belongs to */
+        marked: [{ label: 'تقریبِ نکاح' }, { label: 'ولیمہ / تقریبِ شادی' }],
+        months: ['جنوری','فروری','مارچ','اپریل','مئی','جون',
+                 'جولائی','اگست','ستمبر','اکتوبر','نومبر','دسمبر'],
+        /* one letter per column, as in English - two ج here for جمعرات and
+           جمعہ, exactly as English carries two T and two S. The full name is
+           in the abbr title, which is what a screen reader reads. */
+        weekdays: [['پ','پیر'],['م','منگل'],['ب','بدھ'],['ج','جمعرات'],
+                   ['ج','جمعہ'],['ہ','ہفتہ'],['ا','اتوار']],
+      },
+      milestones: [
+        { title: 'ہمارا پہلا دن ایک ساتھ', note: 'ہر ہمیشہ ایک خوبصورت دن سے شروع ہوتا ہے۔' },
+        { title: 'ایک خوبصورت مہینہ ایک ساتھ', note: 'تیس دن محبت کے۔ اور ایک عمر باقی۔' },
+        { title: '100 دن', note: '100 یادیں۔ لامحدود محبت۔' },
+      ],
+      anniversary: { title: '%s سالگرہ مبارک',
+                     note: 'اللہ ہمارے سفر میں برکت عطا فرماتا رہے۔' },
+    },
+  },
+};
+
 /* ---------- apply config ---------- */
 const $ = id => document.getElementById(id);
 const setText = (id, value) => { const el = $(id); if (el) el.textContent = value; };
 const esc = s => String(s).replace(/[&<>"]/g, c =>
   ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]));
 
-setText('heroBride',  CONFIG.bride);
-setText('heroGroom',  CONFIG.groom);
-setText('brideFull',  CONFIG.brideFull);
-setText('groomFull',  CONFIG.groomFull);
-setText('brideFamily',CONFIG.brideFamily);
-setText('groomFamily',CONFIG.groomFamily);
-setText('invitedBy',  CONFIG.invitedBy);
-setText('inviteLine', CONFIG.inviteLine);
-setText('hashtag',    CONFIG.hashtag);
-setText('footerHashtag', CONFIG.hashtag);
-setText('stdDate',    CONFIG.dateLabel);
-setText('stdDay',     CONFIG.dayLabel);
-// inside the round seal the date reads better stacked than wrapped mid-phrase
-$('sealDate').innerHTML = esc(CONFIG.sealDate).replace(' · ', '<br>');
-setText('sinceDate',  CONFIG.sinceDate);
+/* Text nodes and real <br> elements rather than innerHTML: a translation is
+   still just a string, and none of them has any business becoming markup. */
+const setRich = (el, str) => {
+  el.textContent = '';
+  String(str).split('\n').forEach((line, i) => {
+    if (i) el.appendChild(document.createElement('br'));
+    el.appendChild(document.createTextNode(line));
+  });
+};
 
-const nikah = CONFIG.ceremonies[0];
-if (nikah && nikah.mapsUrl) $('stdMapLink').href = nikah.mapsUrl;
+/* The ceremonies and milestones are arrays of objects, so they merge by
+   POSITION - that is what lets the Urdu side carry only the words and inherit
+   every maps link, photo and address from the English one. */
+function mergeContent(base, diff){
+  const out = Object.assign({}, base, diff);
+  const byIndex = (b, d) => b.map((item, i) => Object.assign({}, item, (d && d[i]) || {}));
+  if (diff.ceremonies) out.ceremonies = byIndex(base.ceremonies, diff.ceremonies);
+  if (diff.milestones) out.milestones = byIndex(base.milestones, diff.milestones);
+  if (diff.anniversary) out.anniversary = Object.assign({}, base.anniversary, diff.anniversary);
+  if (diff.calendar){
+    out.calendar = Object.assign({}, base.calendar, diff.calendar);
+    if (diff.calendar.marked)
+      out.calendar.marked = byIndex(base.calendar.marked, diff.calendar.marked);
+  }
+  return out;
+}
+
+let LANG = 'en';
+let L = CONFIG;                       // the content of whichever language is on
+const T = key => {
+  const table = I18N[LANG].t;
+  return table[key] !== undefined ? table[key] : (I18N.en.t[key] || '');
+};
+
+/* Everything that renders words lives in here, so a language switch is the same
+   code path as the first paint rather than a second one that can drift. */
+function applyContent(){
+  setText('heroBride',  L.bride);
+  setText('heroGroom',  L.groom);
+  setText('brideFull',  L.brideFull);
+  setText('groomFull',  L.groomFull);
+  setText('brideFamily',L.brideFamily);
+  setText('groomFamily',L.groomFamily);
+  setText('invitedBy',  L.invitedBy);
+  setText('inviteLine', L.inviteLine);
+  setText('hashtag',    L.hashtag);
+  setText('footerHashtag', L.hashtag);
+  setText('stdDate',    L.dateLabel);
+  setText('stdDay',     L.dayLabel);
+  // inside the round seal the date reads better stacked than wrapped mid-phrase
+  setRich($('sealDate'), L.sealDate.replace(' · ', '\n'));
+  setText('sinceDate',  L.sinceDate);
+
+  document.querySelectorAll('[data-t]').forEach(el => setRich(el, T(el.dataset.t)));
+
+  const nikah = L.ceremonies[0];
+  if (nikah && nikah.mapsUrl) $('stdMapLink').href = nikah.mapsUrl;
+
+  renderCeremonies();
+  renderVenues();
+  buildCalendar(L.calendar);
+
+  /* the flow lines, the scroll reveals and the journey list all have work to do
+     once the words have changed length; they listen for this */
+  document.dispatchEvent(new Event('content:changed'));
+}
+
+/* dir and lang go on <html>: they flip the whole document, including the month
+   grid's columns, without a single mirrored rule in the stylesheet. */
+function applyLanguage(lang, save){
+  LANG = I18N[lang] ? lang : 'en';
+  L = LANG === 'en' ? CONFIG : mergeContent(CONFIG, I18N[LANG].content || {});
+  const meta = I18N[LANG];
+
+  document.documentElement.setAttribute('lang', LANG);
+  document.documentElement.setAttribute('dir', meta.dir);
+  document.title = meta.docTitle;
+  if (LANG !== 'en') loadUrduFonts();
+
+  const btn = $('langBtn');
+  if (btn){
+    btn.textContent = meta.button;
+    btn.setAttribute('aria-label', meta.buttonLabel);
+    btn.title = meta.buttonTitle;
+    btn.setAttribute('lang', LANG === 'en' ? 'ur' : 'en');   // the label's own language
+  }
+
+  applyContent();
+  if (save){ try { localStorage.setItem('qz-lang', LANG); } catch(e){/* private mode */} }
+}
+
+/* Nastaliq is a heavy face and an English reader never needs it, so it is
+   fetched the first time Urdu is actually asked for rather than on every visit. */
+let urduFontsAsked = false;
+function loadUrduFonts(){
+  if (urduFontsAsked) return;
+  urduFontsAsked = true;
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = 'https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;600' +
+              '&family=Noto+Naskh+Arabic:wght@400;600&display=swap';
+  document.head.appendChild(link);
+}
 
 /* ---------- ceremonies + venues ---------- */
-$('ceremonyList').innerHTML = CONFIG.ceremonies.map(c => `
+function renderCeremonies(){
+  $('ceremonyList').innerHTML = L.ceremonies.map(c => `
   <article class="ceremony fade">
     <h3 class="ceremony-name">${esc(c.name)}</h3>
     <p class="ceremony-date">${esc(c.date)}</p>
     ${c.hijri ? `<p class="ceremony-hijri">${esc(c.hijri)}</p>` : ''}
     <p class="ceremony-time">${esc(c.time)}</p>
     ${c.note ? `<p class="ceremony-note">${esc(c.note)}</p>` : ''}
-    <p class="ceremony-place"><b>${esc(c.venue)}</b><br>${esc(c.address)}</p>
+    <!-- dir="ltr" on the address, always. It is English by design (a guest
+         reads it to a driver), and an English run inside an RTL paragraph gets
+         reordered line by line: "308 Thanisandra Main Road" wraps as
+         "Thanisandra Main Road ... 308". Isolating it is the fix. -->
+    <p class="ceremony-place"><b>${esc(c.venue)}</b><br><span dir="ltr">${esc(c.address)}</span></p>
   </article>`).join('');
+}
 
 /* the map sketch is inline SVG so each venue card gets its own copy */
 const MAP_SKETCH = `
@@ -1570,7 +2013,8 @@ const MAP_SKETCH = `
     <circle cx="84" cy="40" r="2.4" fill="#B49B7F" stroke="none"/>
   </svg>`;
 
-$('venueList').innerHTML = CONFIG.ceremonies.map(c => `
+function renderVenues(){
+  $('venueList').innerHTML = L.ceremonies.map(c => `
   <div class="fade">
     <p class="venue-for">${esc(c.name)}</p>
     <a class="venue-link" href="${esc(c.mapsUrl || '#')}" target="_blank" rel="noopener">
@@ -1585,9 +2029,10 @@ $('venueList').innerHTML = CONFIG.ceremonies.map(c => `
            onload="this.style.display='block';this.previousElementSibling.style.display='none'"
            onerror="this.remove()">
     </a>
-    <p class="venue-addr">${esc(c.address)}</p>
-    <a class="btn btn-ghost" href="${esc(c.mapsUrl || '#')}" target="_blank" rel="noopener">Get directions</a>
+    <p class="venue-addr" dir="ltr">${esc(c.address)}</p>
+    <a class="btn btn-ghost" href="${esc(c.mapsUrl || '#')}" target="_blank" rel="noopener">${esc(T('ven.btn'))}</a>
   </div>`).join('');
+}
 
 /* ---------- month calendar ----------
    Builds the whole month from CONFIG.calendar - nothing about September is
@@ -1652,7 +2097,10 @@ function buildCalendar(cfg){
      already carries the date, the time and the address - so it is gone. */
 }
 
-buildCalendar(CONFIG.calendar);
+/* First paint. The <head> script already put lang/dir on <html> from the saved
+   choice, so read it back rather than guessing again - and pass save=false,
+   because restoring a choice is not the same as making one. */
+applyLanguage(document.documentElement.getAttribute('lang') === 'ur' ? 'ur' : 'en', false);
 
 /* ---------- flow lines: each ringed day down to its ceremony ----------
    The month and the cards are one diagram; these hairlines are what say so. */
@@ -1823,6 +2271,13 @@ buildCalendar(CONFIG.calendar);
   /* Webfont metrics move every coordinate above, and this card is sized by its
      own text - so measure again once the faces have landed. */
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+  /* A language change rewrites every word in the card and swaps the whole
+     document to RTL, which moves both ends of every line. Redraw immediately,
+     then again once the Urdu faces have loaded and moved them a second time. */
+  document.addEventListener('content:changed', () => {
+    draw();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+  });
   if (window.ResizeObserver) new ResizeObserver(draw).observe(card);
   else addEventListener('resize', draw);
 
@@ -1851,7 +2306,8 @@ buildCalendar(CONFIG.calendar);
 const overlay = document.getElementById('overlay');
 const music = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('musicBtn');
-const themeBtn = document.getElementById('themeBtn');   // both appear together, once the cover lifts
+const themeBtn = document.getElementById('themeBtn');   // all three appear together, once the cover lifts
+const langBtn  = document.getElementById('langBtn');
 document.body.style.overflow = 'hidden';
 
 if (CONFIG.music){ music.src = CONFIG.music; music.volume = CONFIG.musicVolume; }
@@ -1891,6 +2347,7 @@ function dismissCover(){
   document.body.classList.add('opened');
   musicBtn.classList.add('show');
   themeBtn.classList.add('show');
+  langBtn.classList.add('show');
   music.play().catch(() => {/* no audio file / autoplay blocked - toggle still works */});
 }
 document.getElementById('coverTap').addEventListener('click', openInvitation);
@@ -1911,7 +2368,7 @@ const syncMusicBtn = () => {
   musicBtn.classList.toggle('playing', playing);
   musicBtn.setAttribute('aria-pressed', playing ? 'true' : 'false');
   // the label has to say what the tap will DO, not what the audio is doing
-  const label = playing ? 'Pause music' : 'Play music';
+  const label = T(playing ? 'btn.pause' : 'btn.play');
   musicBtn.setAttribute('aria-label', label);
   musicBtn.title = label;
 };
@@ -1925,10 +2382,9 @@ syncMusicBtn();                 // paused, crossed out, before the first tap
    switches itself over at sunset - an explicit tap outranks the system. */
 const syncThemeBtn = () => {
   const dark = document.documentElement.getAttribute('data-theme') === 'dark';
-  const label = dark ? 'Switch to light theme' : 'Switch to dark theme';
   themeBtn.setAttribute('aria-pressed', dark ? 'true' : 'false');
-  themeBtn.setAttribute('aria-label', label);
-  themeBtn.title = dark ? 'Light theme' : 'Dark theme';
+  themeBtn.setAttribute('aria-label', T(dark ? 'btn.toLight' : 'btn.toDark'));
+  themeBtn.title = T(dark ? 'btn.light' : 'btn.dark');
 };
 
 themeBtn.addEventListener('click', () => {
@@ -1939,6 +2395,18 @@ themeBtn.addEventListener('click', () => {
   syncThemeBtn();
 });
 syncThemeBtn();
+
+/* ---------- language toggle ----------
+   The whole page is rewritten in place rather than reloaded: a reload would
+   throw the guest back to the sealed cover and make them open the invitation a
+   second time just to read it in their own language. */
+langBtn.addEventListener('click', () => {
+  applyLanguage(LANG === 'ur' ? 'en' : 'ur', true);
+});
+
+/* The other two buttons carry wording of their own - "Pause music", "Dark
+   theme" - so they have to turn over with the rest of the page. */
+document.addEventListener('content:changed', () => { syncThemeBtn(); syncMusicBtn(); });
 
 /* ---------- floating hearts ---------- */
 (function hearts(){
@@ -1959,7 +2427,13 @@ syncThemeBtn();
 const io = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
 }, { threshold: 0.18 });
-document.querySelectorAll('.fade').forEach(el => io.observe(el));
+const observeFades = () =>
+  document.querySelectorAll('.fade:not(.in)').forEach(el => io.observe(el));
+observeFades();
+/* A language switch replaces the ceremony and venue cards with new elements,
+   and the observer was watching the old ones. Without this the rebuilt cards
+   would keep .fade's opacity:0 and the section would simply go blank. */
+document.addEventListener('content:changed', observeFades);
 
 /* ----------------------------------------------------------------
    Party popper. One full-screen canvas is created on first use and
@@ -2130,20 +2604,20 @@ document.querySelectorAll('.coin').forEach(coin => {
   }
 
   /* milestones reached so far, plus the next one still to come */
-  function buildJourney(){
+  function buildJourney(rebuild){
     const list = $('journeyList');
-    if (!list || list.childElementCount) return;
+    if (!list || (list.childElementCount && !rebuild)) return;
 
     const daysTogether = Math.floor((Date.now() - target) / 864e5) + 1;
     const years = Math.floor(daysTogether / 365.25);
-    const items = CONFIG.milestones.slice();
+    const items = L.milestones.slice();
 
     for (let y = 1; y <= years + 1; y++){
       items.push({
         day:   Math.round(y * 365.25),
-        art:   CONFIG.anniversary.art,
-        title: CONFIG.anniversary.title.replace('%s', ordinal(y)),
-        note:  CONFIG.anniversary.note,
+        art:   L.anniversary.art,
+        title: L.anniversary.title.replace('%s', ordinal(y)),
+        note:  L.anniversary.note,
       });
     }
 
@@ -2165,9 +2639,19 @@ document.querySelectorAll('.coin').forEach(coin => {
   }
 
   function ordinal(n){
+    /* "1st" inside an Urdu sentence would be two scripts fighting, so Urdu gets
+       its own ordinals - named for the first three, then the regular form. */
+    if (LANG === 'ur') return ['', 'پہلی', 'دوسری', 'تیسری'][n] || (n + 'ویں');
     const s = ['th','st','nd','rd'], v = n % 100;
     return n + (s[(v - 20) % 10] || s[v] || s[0]);
   }
+
+  /* the milestones are words too - rebuild them when the language changes, but
+     only if they are already on the page (forever mode) */
+  document.addEventListener('content:changed', () => {
+    const list = $('journeyList');
+    if (list && list.childElementCount) buildJourney(true);
+  });
 
   tick();
 })();
