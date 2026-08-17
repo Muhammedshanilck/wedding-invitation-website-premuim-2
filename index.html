@@ -31,16 +31,26 @@
 <meta property="og:locale"      content="en_US">
 <meta property="og:url"         content="https://wedding-invitation-website-premuim-2.vercel.app/">
 <meta property="og:title"       content="Zain &amp; Qurrath">
-<meta property="og:description" content="Wedding Invitation - Nikah, 3 September 2026 | Valima, 6 September 2026">
+<!-- Kept to the two words on purpose. This line is the grey text under the
+     title in a WhatsApp preview, and the dates belong inside the invitation,
+     not in a chat list. -->
+<meta property="og:description" content="Wedding Invitation">
 <meta property="og:image"       content="https://wedding-invitation-website-premuim-2.vercel.app/assets/images/social-preview.jpg">
 <!-- secure_url is what older WhatsApp and Facebook crawlers actually read -->
 <meta property="og:image:secure_url" content="https://wedding-invitation-website-premuim-2.vercel.app/assets/images/social-preview.jpg">
 <meta property="og:image:type"  content="image/jpeg">
+<!-- Declaring the size lets the FIRST person who shares the link see the
+     picture. Without it the crawler has to fetch and measure the file before it
+     will render a preview, so the first share goes out as bare text.
+     These two numbers must match the real file - if the image is ever replaced
+     with one of a different size, change them with it. -->
+<meta property="og:image:width"  content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:image:alt"   content="Wedding invitation of Zain and Qurrath">
 
 <meta name="twitter:card"        content="summary_large_image">
 <meta name="twitter:title"       content="Zain &amp; Qurrath">
-<meta name="twitter:description" content="Wedding Invitation - Nikah, 3 September 2026 | Valima, 6 September 2026">
+<meta name="twitter:description" content="Wedding Invitation">
 <meta name="twitter:image"       content="https://wedding-invitation-website-premuim-2.vercel.app/assets/images/social-preview.jpg">
 <meta name="twitter:image:alt"   content="Wedding invitation of Zain and Qurrath">
 
@@ -262,7 +272,14 @@ body.opened .heart{animation:floatUp linear infinite}
   display:flex;justify-content:center;
   transition:opacity 1.1s ease, visibility 1.1s;
 }
-#overlay.hidden{opacity:0;visibility:hidden}
+/* pointer-events:none is the important one here, not the fade.
+   visibility is transitioned, and CSS holds a transitioning visibility at
+   "visible" for the WHOLE duration - so for the 1.1s of the fade the dismissed
+   cover was still the topmost thing on the page, swallowing every tap aimed at
+   the round buttons underneath it (the skip button sits within 2px of the music
+   button). pointer-events is not transitioned, so it takes effect on the frame
+   the class lands and the cover is inert from the moment it starts leaving. */
+#overlay.hidden{opacity:0;visibility:hidden;pointer-events:none}
 .cover{
   position:relative;width:min(480px,100%);height:100%;
   background:#191210;overflow:hidden;cursor:pointer;
@@ -333,10 +350,15 @@ body.opened .heart{animation:floatUp linear infinite}
 }
 .cover-video.playing .video-label{opacity:0}
 .cover-video.playing .video-label span{animation:none}
-/* skip the intro video - also pinned: it is a cream pill on the video, so dark
-   ink stays dark ink here even when the page ink has gone ivory */
+/* Skip the intro video. It sits bottom-LEFT: bottom-right is where the three
+   round buttons appear the moment the cover lifts, and a guest who taps Skip
+   would have their finger directly over the music button as it arrives. Even
+   with the cover now inert, two controls a second apart in the same 46px of
+   screen is a tap waiting to go to the wrong one.
+   Also pinned to the cover's own colours: it is a cream pill on the video, so
+   dark ink stays dark ink here even when the page ink has gone ivory. */
 #skipBtn{
-  position:absolute;right:18px;bottom:20px;z-index:9;
+  position:absolute;left:18px;bottom:20px;z-index:9;
   background:var(--cover-btn);border:1px solid #B49B7F;
   color:var(--cover-ink);cursor:pointer;border-radius:20px;
   padding:9px 18px;font-family:var(--sans);font-weight:400;font-size:10.5px;
@@ -354,6 +376,9 @@ body.opened .heart{animation:floatUp linear infinite}
   display:none;align-items:center;justify-content:center;
   box-shadow:0 4px 14px rgba(0,0,0,.3);
   transition:background .3s, color .3s;
+  /* no double-tap-to-zoom wait on these, so a tap acts on the frame it lands
+     rather than 300ms later, by which time the finger may have moved on */
+  touch-action:manipulation;
 }
 #musicBtn{bottom:16px}
 #themeBtn{bottom:70px}          /* stacked above the music button */
@@ -809,7 +834,7 @@ body:not(.date-revealed) #countdown{display:none}
    ceremony would fight it. They are open blocks separated by space, and the
    diamond where each flow line lands is what marks the head of one. */
 .ceremonies{display:flex;flex-direction:column;gap:38px;margin-top:44px}
-/* no side padding: "Valima / Wedding Ceremony" overruns a 390px phone by a
+/* no side padding: "Valima" overruns a 390px phone by a
    few px with any, and breaks after the slash - the panel's own padding is
    already the margin this text needs */
 .ceremony{position:relative}
@@ -1037,18 +1062,24 @@ html[lang="ur"] .count-num{font-family:var(--sans)}
    would watch it flash cream and then snap over. Everything else about the
    theme (the button, the toggle) lives with the rest of the JS below.
 
-   A saved choice always wins; with none, follow the phone's own setting. */
+   As set below the page always opens cream, so there is nothing to decide -
+   but the hook stays here, because the moment it is switched back on it has
+   to run before the first paint or the flash returns. */
 (function(){
-  /* A guest with their phone on dark opens the invitation dark. Set this to
-     false to always open on cream and let the button be the only way into the
-     dark theme - a saved choice still wins either way. */
-  var FOLLOW_PHONE_SETTING = true;
+  /* The invitation always opens on cream. The button is the only way into the
+     dark theme, and it lasts for that visit only - the next open is cream
+     again, on every device, whatever the phone is set to.
+
+     Set this to true to go back to the invitation remembering the guest's
+     last choice and honouring a phone that is set to dark. */
+  var OPEN_AS_GUEST_LEFT_IT = false;
+
+  if (!OPEN_AS_GUEST_LEFT_IT) return;      // cream: nothing to set
 
   var saved = null;
   try { saved = localStorage.getItem('qz-theme'); } catch(e){/* private mode */}
   var dark = saved ? saved === 'dark'
-                   : FOLLOW_PHONE_SETTING &&
-                     matchMedia('(prefers-color-scheme: dark)').matches;
+                   : matchMedia('(prefers-color-scheme: dark)').matches;
   if (dark) document.documentElement.setAttribute('data-theme', 'dark');
 })();
 
@@ -1634,7 +1665,7 @@ const CONFIG = {
       mapsUrl: "https://maps.app.goo.gl/AYFH2ceYPdd1rQxd9?g_st=ic",
     },
     {
-      name:    "Valima / Wedding Ceremony",
+      name:    "Valima",
       date:    "Sunday, 6 September 2026",
       hijri:   "",
       time:    "1:00 PM",
@@ -1666,7 +1697,7 @@ const CONFIG = {
     pulseStagger: 180,          // ms between each marked day's beat
     marked: [
       { date: "2026-09-03", label: "Nikah Ceremony" },
-      { date: "2026-09-06", label: "Valima / Wedding Ceremony" },
+      { date: "2026-09-06", label: "Valima" },
     ],
     months: ["January","February","March","April","May","June",
              "July","August","September","October","November","December"],
