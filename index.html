@@ -3,6 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<!-- Tints the browser's own chrome - Safari's address bar, Android's status
+     bar - to match the page. Without it the invitation opens dark inside a
+     bright white bar. The value is the DEFAULT palette's edge colour; the
+     theme toggle rewrites it, so it follows the page rather than going stale. -->
+<meta name="theme-color" content="#0B0808">
 <title>Qurrat &amp; Zain &mdash; Wedding Invitation</title>
 <meta name="description" content="With the blessings of Allah, we invite you to celebrate our Nikah and Valima.">
 
@@ -1041,25 +1046,29 @@ html[lang="ur"] .count-num{font-family:var(--sans)}
    would watch it flash cream and then snap over. Everything else about the
    theme (the button, the toggle) lives with the rest of the JS below.
 
-   As set below the page always opens cream, so there is nothing to decide -
-   but the hook stays here, because the moment it is switched back on it has
-   to run before the first paint or the flash returns. */
+   The CSS default is the cream palette - dark is the override that
+   data-theme="dark" switches on - so opening dark means setting that
+   attribute HERE, before anything is painted. Do it any later and every
+   guest sees a frame of cream first. */
 (function(){
-  /* The invitation always opens on cream. The button is the only way into the
-     dark theme, and it lasts for that visit only - the next open is cream
-     again, on every device, whatever the phone is set to.
+  /* Which palette the invitation opens on, for every guest, on every device,
+     whatever the phone is set to: 'dark' or 'light'. The button flips it for
+     that visit only; the next open comes back here. */
+  var DEFAULT_THEME = 'dark';
 
-     Set this to true to go back to the invitation remembering the guest's
-     last choice and honouring a phone that is set to dark. */
+  /* Set this to true to have the invitation remember the guest's last choice
+     instead, and honour a phone that is set to dark. DEFAULT_THEME then only
+     applies to a guest who has neither. */
   var OPEN_AS_GUEST_LEFT_IT = false;
 
-  if (!OPEN_AS_GUEST_LEFT_IT) return;      // cream: nothing to set
-
-  var saved = null;
-  try { saved = localStorage.getItem('qz-theme'); } catch(e){/* private mode */}
-  var dark = saved ? saved === 'dark'
-                   : matchMedia('(prefers-color-scheme: dark)').matches;
-  if (dark) document.documentElement.setAttribute('data-theme', 'dark');
+  var theme = DEFAULT_THEME;
+  if (OPEN_AS_GUEST_LEFT_IT){
+    var saved = null;
+    try { saved = localStorage.getItem('qz-theme'); } catch(e){/* private mode */}
+    theme = saved ? saved
+                  : (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : DEFAULT_THEME);
+  }
+  if (theme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
 })();
 
 /* ---------- language, also decided before the first paint ----------
@@ -1565,7 +1574,7 @@ html[lang="ur"] .count-num{font-family:var(--sans)}
       together.
     </p>
     <!-- the hashtag stays Latin in both languages, so it is isolated too -->
-    <p class="hashtag fade" id="hashtag" dir="ltr">#QurratWedsZain</p>
+    <p class="hashtag fade" id="hashtag" dir="ltr">#ZainWedsQurrat</p>
   </section>
 
   <!-- ======================= FOOTER ======================= -->
@@ -1595,7 +1604,7 @@ html[lang="ur"] .count-num{font-family:var(--sans)}
         <circle cx="55" cy="24" r="2"/><circle cx="38" cy="33" r="1.6"/><circle cx="72" cy="33" r="1.6"/>
       </g>
     </svg>
-    <p class="footer-credit hashtag fade" id="footerHashtag" dir="ltr">#QurratWedsZain</p>
+    <p class="footer-credit hashtag fade" id="footerHashtag" dir="ltr">#ZainWedsQurrat</p>
   </footer>
 
 </div>
@@ -1610,7 +1619,7 @@ const CONFIG = {
   groom:      "Zain",
   brideFull:  "Qurrat",
   groomFull:  "Zain",
-  hashtag:    "#QurratWedsZain",
+  hashtag:    "#ZainWedsQurrat",
 
   /* Short form is on the page. The fuller version supplied was:
        bride: "Daughter of Syed Ather Hussaini
@@ -2388,11 +2397,19 @@ syncMusicBtn();                 // paused, crossed out, before the first tap
    The palette was already chosen in <head>; this only flips it and remembers.
    Once a guest picks a theme their choice sticks, even if the phone later
    switches itself over at sunset - an explicit tap outranks the system. */
+const themeColorMeta = document.querySelector('meta[name="theme-color"]');
 const syncThemeBtn = () => {
   const dark = document.documentElement.getAttribute('data-theme') === 'dark';
   themeBtn.setAttribute('aria-pressed', dark ? 'true' : 'false');
   themeBtn.setAttribute('aria-label', T(dark ? 'btn.toLight' : 'btn.toDark'));
   themeBtn.title = T(dark ? 'btn.light' : 'btn.dark');
+  /* keep the browser chrome on the same side as the page. Read from the live
+     palette rather than repeating the hex here, so re-theming --page-edge
+     cannot leave the address bar behind on a colour the page no longer uses. */
+  if (themeColorMeta){
+    themeColorMeta.setAttribute('content',
+      getComputedStyle(document.documentElement).getPropertyValue('--page-edge').trim());
+  }
 };
 
 themeBtn.addEventListener('click', () => {
