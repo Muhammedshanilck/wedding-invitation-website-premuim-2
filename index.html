@@ -80,9 +80,9 @@
 <!-- ============================================================
   WEDDING INVITATION - Qurrat & Zain
   Palette + typography matched to reference recording.
-  Corner florals are inline SVG; the hero crown and the chandelier are
-  cut-out PNGs in assets/images (drawn SVG versions of both are kept in
-  the art library / commented out in the hero, ready to swap back).
+  Corner florals are inline SVG. The hero's floral-crown photo and its
+  swaying chandelier photo have been removed; the drawn gold chandelier
+  is still in the art library, commented out in the hero, if wanted.
   ------------------------------------------------------------
   All names, dates, venues and copy live in the CONFIG block near
   the bottom of this file. Nothing else needs editing.
@@ -92,8 +92,8 @@
     assets/videos/opening.mp4  intro video         [present]
     assets/images/cover-poster.jpg  frame 0 of that video, shown until it
       plays - REGENERATE THIS if opening.mp4 is ever replaced [present]
-    assets/images/chandelier.png   hero chandelier  [present]
-    assets/images/floral-crown-2.png hero top border [present]
+    assets/images/chandelier.png     [NO LONGER USED - safe to delete]
+    assets/images/floral-crown-2.png [NO LONGER USED - safe to delete]
     assets/favicon/*             site icon, ZQ monogram [see <head>]
     assets/images/nikah.jpg    Nikah venue photo   (replaces sketch)
     assets/images/valima.jpg   Valima venue photo  (replaces sketch)
@@ -119,7 +119,7 @@
   --crimson:#66000C;      /* rose accent: hashtag, venue hint */
   --gold:#DFBE8C;         /* gold accents */
   --gold-light:#F3DFB6;   /* gold script */
-  --blush:#E5A79F;        /* floating hearts */
+  --blush:#E5A79F;        /* unused since the floating hearts became motes */
   --tan:#B49B7F;          /* frames, map sketch */
 
   /* These used to be hex literals buried in the rules below. They are named
@@ -139,11 +139,11 @@
      restates it, where the names are cream and the sheen has to go brighter
      rather than darker to read at all. */
   --name-sheen:#D9A94A;
-  /* the halo the heart between the names throws on each beat. On cream a rose
-     bloom reads as warmth around near-black ink; the dark theme lifts it, where
-     the heart is cream and the halo has to glow rather than shade. */
-  --heart-glow:rgba(163,32,36,.5);
-  --heart-glow-soft:rgba(229,167,159,.55);
+  /* the drifting motes. On cream nothing can GLOW - there is no darkness for
+     light to sit against - so here they are warm gold specks that read as
+     catching the light. The dark theme swaps to an actual glow. */
+  --spark-core:rgba(158,96,60,.92);
+  --spark-halo:rgba(196,150,74,.30);
 
   /* The cover is the intro video, which is the same cream-and-wax footage in
      either theme, so these two are deliberately NOT restated in the dark block
@@ -197,8 +197,10 @@
      brightness alone leaves nothing to see. It reads through saturation
      instead - a true gold crossing desaturated ivory. */
   --name-sheen:#EFB944;
-  --heart-glow:rgba(233,150,143,.75);
-  --heart-glow-soft:rgba(201,130,123,.42);
+  /* near-white core, gold halo: on near-black this is the one place the motes
+     can behave like real points of light */
+  --spark-core:rgba(255,244,214,.95);
+  --spark-halo:rgba(239,185,68,.45);
 
   /* the calendar rings: gold on the dark card, maroon on the cream one */
   --cal-accent:var(--gold);
@@ -257,16 +259,33 @@ section{padding:96px 30px;position:relative;text-align:center}
 .fl{position:absolute;pointer-events:none;z-index:3}
 .fl use{transform-origin:center}
 
-/* ---------- floating hearts ---------- */
-.heart{
-  position:fixed;bottom:-30px;z-index:6;pointer-events:none;
-  font-size:18px;color:var(--blush);opacity:0;
+/* ---------- drifting glimmer ----------
+   Motes of light that rise the height of the page. Each one is a radial
+   gradient, not a filled circle: a hard edge reads as a bullet point, a
+   gradient reads as something lit. They also drift sideways as they climb,
+   because a dot travelling in a dead-straight vertical line reads as a
+   progress indicator rather than as something floating.
+
+   Travel and brightness are driven by ONE animation. Splitting the twinkle
+   into a second, faster animation is the obvious approach and it does not
+   work - both would animate opacity, so whichever is declared last simply
+   wins and the fade at the top and bottom of the climb is lost. The dips at
+   38% and 78% are the twinkle instead, and since every mote gets its own
+   duration they never pulse in unison. */
+.spark{
+  position:fixed;bottom:-24px;z-index:6;pointer-events:none;
+  width:10px;height:10px;border-radius:50%;opacity:0;
+  background:radial-gradient(circle at 50% 50%,
+    var(--spark-core) 0%, var(--spark-halo) 38%, transparent 70%);
 }
-body.opened .heart{animation:floatUp linear infinite}
-@keyframes floatUp{
-  0%{transform:translateY(0) rotate(0);opacity:0}
-  12%{opacity:.75}
-  100%{transform:translateY(-105vh) rotate(28deg);opacity:0}
+body.opened .spark{animation:driftUp linear infinite}
+@keyframes driftUp{
+  0%  {transform:translate(0,0) scale(.65);                opacity:0}
+  12% {                                                    opacity:var(--peak,.75)}
+  38% {                                                    opacity:calc(var(--peak,.75) * .3)}
+  58% {                                                    opacity:var(--peak,.75)}
+  78% {                                                    opacity:calc(var(--peak,.75) * .45)}
+  100%{transform:translate(var(--dx,14px),-105vh) scale(1);opacity:0}
 }
 
 /* ---------- landing overlay: the intro video IS the cover ---------- */
@@ -412,37 +431,15 @@ html[lang="ur"] #langBtn{font-size:12px;letter-spacing:.1em}
 :root[data-theme="dark"] #themeBtn .i-moon{display:none}
 
 /* ---------- hero ---------- */
+/* The 250px of padding-top that used to sit here was clearing the floral
+   crown and the chandelier hanging over the top of this section. With both
+   gone it would only be a hole above the names, so the hero simply centres
+   its content in the viewport now.
+   The .hero-crown, .chandelier and pendulum rules went with the markup. */
 #hero{
   min-height:100vh;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;padding-top:250px;
+  align-items:center;justify-content:center;
 }
-/* ---------- floral crown across the top of the hero ----------
-   A background-removed row of dark burgundy blooms, hung from the top edge
-   as a border. z-index 1 keeps it BEHIND the chandelier (z-index 2), so the
-   light hangs in front of the flowers rather than being buried by them.
-   Most of the source PNG below the blooms is transparent, so the element is
-   far taller than the flowers appear - harmless, since it takes no pointer
-   events, and it is what lets the petals end on their own ragged edge. */
-.hero-crown{
-  position:absolute;top:0;left:50%;transform:translateX(-50%);
-  width:104%;               /* slight bleed so the flowers reach both edges */
-  z-index:1;pointer-events:none;user-select:none;
-}
-.hero-crown img{width:100%;height:auto;display:block}
-/* Swaying chandelier light. Sized by width only so the photo keeps its own
-   proportions; transform-origin sits at the very top so the sway pivots from
-   the rope rather than the middle of the crystals. Works for either the photo
-   or the drawn SVG version. */
-.chandelier{
-  position:absolute;top:-4px;left:50%;width:216px;height:auto;
-  margin-left:-108px;z-index:2;
-  transform-origin:50% 0;
-  animation:pendulum 4.6s ease-in-out infinite;
-  filter:drop-shadow(0 10px 18px rgba(102,0,12,.28));
-  pointer-events:none;user-select:none;
-}
-svg.chandelier{height:250px}   /* the drawn version needs an explicit height */
-@keyframes pendulum{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
 .hero-frame{
   position:absolute;inset:64px 22px 40px;
   border:1px solid var(--tan);
@@ -469,17 +466,17 @@ svg.chandelier{height:250px}   /* the drawn version needs an explicit height */
    pulse from a throb: a quick swell, a partial recoil, a smaller second
    swell, then stillness for well over half the cycle. The glow rides the
    same curve, so the heart reads as lit from within rather than resized. */
-.hero-heart{
-  display:block;font-size:22px;color:var(--maroon);font-weight:400;margin:8px 0;
-  will-change:transform;
-  animation:heartbeat 2.4s ease-in-out infinite;
-}
-@keyframes heartbeat{
-  0%,100%{transform:scale(1);    text-shadow:0 0 6px var(--heart-glow-soft)}
-  8%     {transform:scale(1.26); text-shadow:0 0 16px var(--heart-glow), 0 0 30px var(--heart-glow-soft)}
-  16%    {transform:scale(1.02); text-shadow:0 0 8px var(--heart-glow-soft)}
-  25%    {transform:scale(1.16); text-shadow:0 0 13px var(--heart-glow)}
-  38%    {transform:scale(1);    text-shadow:0 0 6px var(--heart-glow-soft)}
+.hero-amp{
+  display:block;margin:4px 0;
+  /* the italic ampersand is the ornament here - Cormorant draws it with a
+     proper calligraphic swash, which is why it is set larger than the old
+     heart and lighter than the names it joins */
+  font-family:var(--serif);font-style:italic;font-weight:400;
+  font-size:36px;line-height:1;color:var(--maroon);
+  /* .hero-names adds .14em of letter-spacing for the names. On a single
+     character that space is added AFTER the glyph, pushing it off-centre by
+     half a space - so both are cancelled here. */
+  letter-spacing:0;text-indent:0;
 }
 
 /* ---------- the names catch the light ----------
@@ -509,9 +506,9 @@ svg.chandelier{height:250px}   /* the drawn version needs an explicit height */
     color:transparent;
     animation:name-sheen 6.5s ease-in-out 1.4s infinite;
   }
-  /* the heart sets its own colour, so it stays solid and only the NAMES light
-     up - which is the point */
-  .hero-names .hero-heart{color:var(--maroon)}
+  /* the ampersand sets its own colour, so it stays solid and only the NAMES
+     light up - which is the point */
+  .hero-names .hero-amp{color:var(--maroon)}
 }
 /* Travels for the first 55%, then holds. The hold is what stops it reading as
    a loading shimmer: it is a glint, not a barber's pole. Start and end both
@@ -658,19 +655,10 @@ svg.chandelier{height:250px}   /* the drawn version needs an explicit height */
   --cal-pulse:    rgba(83,13,19,.42);     /* ring that travels outward */
   --cal-rule:     var(--cal-ring);        /* the flow line down to a ceremony */
   --cal-cell:     34px;
-  --cal-heart-size: calc(var(--cal-cell) + 8px);   /* the ring around a marked day */
+  /* +2px so the ring clears the digits without crossing into the next cell:
+     the cell is 34px and the row pitch 36px, so this sits exactly flush */
+  --cal-ring-size: calc(var(--cal-cell) + 2px);   /* the ring around a marked day */
   --cal-pulse-time: 1.6s;                 /* one full beat          */
-
-  /* The heart that rings a marked day, drawn once and used twice - as the
-     still outline and as the one that beats outward.
-
-     It is carried as a MASK, not as a background image. A mask is painted with
-     background-color, so this one file takes --cal-ring in the cream theme and
-     the gold of the dark one; a colour baked into the SVG could not follow the
-     theme, and two tinted copies would have to be kept in step by hand.
-     The stroke is white because a mask reads either alpha or luminance
-     depending on the engine, and white is 1 under both. */
-  --cal-heart:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.15' stroke-linejoin='round'><path d='M12 21.1l-1.4-1.3C5.4 15.2 2 12.1 2 8.4 2 5.4 4.4 3 7.5 3c1.7 0 3.4.8 4.5 2.1C13.1 3.8 14.8 3 16.5 3 19.6 3 22 5.4 22 8.4c0 3.7-3.4 6.8-8.6 11.4L12 21.1z'/></svg>");
 }
 /* ---------- the ceremonies panel ----------
    ONE sealed card: the month, the Nikah and the Valima live inside a single
@@ -708,7 +696,7 @@ svg.chandelier{height:250px}   /* the drawn version needs an explicit height */
   /* a touch smaller than on the open page: the panel's padding has to stay wide
      enough to carry a flow line down the side of it */
   --cal-cell:32px;
-  --cal-heart-size:38px;
+  --cal-ring-size:34px;
 }
 /* The month is not boxed inside the panel - it would be a frame within a frame,
    and a hairline leaving a ringed day would have to pierce it. */
@@ -738,7 +726,7 @@ svg.chandelier{height:250px}   /* the drawn version needs an explicit height */
      lining figures matter just as much here: Cormorant defaults to OLD-STYLE
      numerals, where 1 and 2 sit at x-height, 3 4 5 7 9 hang below the baseline
      and 6 8 rise above it. Inside a fixed cell each digit then lands at its own
-     height - a 3 ringed by a heart reads as sunk, a 6 as centred. Lining
+     height - a ringed 3 reads as sunk, a 6 as centred. Lining
      figures give every day one cap height and one baseline, so the ring sits
      the same on all of them. */
   font-variant-numeric:tabular-nums lining-nums;
@@ -746,38 +734,26 @@ svg.chandelier{height:250px}   /* the drawn version needs an explicit height */
 .cal-day.is-marked{
   position:relative;color:var(--cal-accent);font-weight:600;
 }
-/* ::before is the heart that stays, ::after the one that beats outward */
+/* ::before is the ring that stays, ::after the one that beats outward.
+   Both are drawn as a plain bordered circle: a hairline ring needs no mask and
+   no SVG, so it inherits the theme colour directly and has nothing to fall
+   back to. Centred with margins rather than a translate, because the pulse
+   below needs transform to itself. */
 .cal-day.is-marked::before,
 .cal-day.is-marked::after{
   content:'';position:absolute;pointer-events:none;
-  width:var(--cal-heart-size);height:var(--cal-heart-size);
-  /* A heart carries its weight above its point: its body sits at about 40% of
-     its height, not at 50% the way a circle's does. Centre one on a digit and
-     the digit reads as sunk into the point. So the heart hangs 3px BELOW centre
-     - the outline moves, never the number, which has to stay on the grid with
-     the other days. Centred with margins rather than a translate, because the
-     pulse below needs transform to itself. */
-  left:50%;margin-left:calc(var(--cal-heart-size) / -2);
-  top:50%; margin-top:calc(var(--cal-heart-size) / -2 + 3px);
-  -webkit-mask:var(--cal-heart) center/contain no-repeat;
-          mask:var(--cal-heart) center/contain no-repeat;
+  width:var(--cal-ring-size);height:var(--cal-ring-size);
+  border-radius:50%;border:1px solid transparent;
+  /* a circle sits on its own centre, so it centres on the digit exactly */
+  left:50%;margin-left:calc(var(--cal-ring-size) / -2);
+  top:50%; margin-top:calc(var(--cal-ring-size) / -2);
 }
-.cal-day.is-marked::before{background:var(--cal-ring)}
+.cal-day.is-marked::before{border-color:var(--cal-ring)}
 .cal-day.is-marked::after{
-  background:var(--cal-pulse);opacity:0;
-  /* --pd is written per heart by the builder, so the two ceremony days beat in
+  border-color:var(--cal-pulse);opacity:0;
+  /* --pd is written per ring by the builder, so the two ceremony days beat in
      date order instead of in unison */
   animation:cal-pulse var(--cal-pulse-time) ease-out var(--pd,0s) infinite;
-}
-/* If masks are unavailable the hearts would simply never paint, so the day
-   falls back to the circle it had before - still marked, just not a heart. */
-@supports not ((-webkit-mask-image:url("")) or (mask-image:url(""))){
-  .cal-day.is-marked{border:1px solid var(--cal-ring);border-radius:50%}
-  .cal-day.is-marked::before{display:none}
-  .cal-day.is-marked::after{
-    background:none;border:1px solid var(--cal-pulse);
-    border-radius:50%;inset:-4px;
-  }
 }
 /* The ring finishes travelling by 55% and then holds invisible for the rest of
    the cycle. That silent tail is what keeps a looping pulse reading as a
@@ -1429,30 +1405,28 @@ html[lang="ur"] .count-num{font-family:var(--sans)}
 
   <!-- ======================= HERO ======================= -->
   <section id="hero">
-    <!-- the floral crown is first in the markup and sits at z-index 1, so the
-         chandelier hangs in front of it -->
-    <div class="hero-crown" aria-hidden="true">
-      <img src="assets/images/floral-crown-2.png" alt="" decoding="async">
-    </div>
-
-    <!-- the hanging light. Swap the two lines below to go back to the drawn
-         gold chandelier - the sway animation lives on .chandelier and applies
-         to either one.
-         <svg class="chandelier"><use href="#chandelier-art"/></svg> -->
-    <img class="chandelier" src="assets/images/chandelier.png" alt="" decoding="async">
+    <!-- The floral-crown photo and the swaying chandelier photo were both
+         removed; their CSS went with them. The hero now opens on the arch
+         frame and the type alone.
+         The drawn gold chandelier is still in the art library below if it is
+         ever wanted back:
+         <svg class="chandelier"><use href="#chandelier-art"/></svg>
+         (it would need the .chandelier rule and the pendulum keyframes back). -->
     <div class="hero-frame"></div>
 
-    <!-- the top corner clusters are gone: the crown photo already fills those
-         corners. Put these two lines back to restore them.
+    <!-- All four corner clusters are gone: the top pair went with the crown
+         photo, the bottom pair was crowding the scroll cue. The hero is now
+         the arch frame and the type alone. The .fl rules and the #fl-cluster
+         symbol are kept, so any of these four lines can go back as-is.
          <svg class="fl tl"><use href="#fl-cluster"/></svg>
-         <svg class="fl tr"><use href="#fl-cluster"/></svg> -->
-    <svg class="fl bl"><use href="#fl-cluster"/></svg>
-    <svg class="fl br"><use href="#fl-cluster"/></svg>
+         <svg class="fl tr"><use href="#fl-cluster"/></svg>
+         <svg class="fl bl"><use href="#fl-cluster"/></svg>
+         <svg class="fl br"><use href="#fl-cluster"/></svg> -->
 
     <div class="caps fade" data-t="hero.together" style="position:relative;z-index:4">Together with<br>their families</div>
     <h1 class="hero-names fade">
       <span id="heroGroom">Zain</span>
-      <span class="hero-heart">&#9825;</span>
+      <span class="hero-amp">&amp;</span>
       <span id="heroBride">Qurrat</span>
     </h1>
     <p class="caps fade" data-t="hero.invite">
@@ -2442,18 +2416,30 @@ langBtn.addEventListener('click', () => {
    theme" - so they have to turn over with the rest of the page. */
 document.addEventListener('content:changed', () => { syncThemeBtn(); syncMusicBtn(); });
 
-/* ---------- floating hearts ---------- */
-(function hearts(){
+/* ---------- drifting glimmer ----------
+   Every value here is randomised per mote - position, size, speed, delay,
+   sideways drift and peak brightness. That spread is the whole effect: a
+   dozen identical dots on identical timings read as a loading animation,
+   while the same dozen with nothing in common read as dust in the light.
+   Small ones are deliberately made fainter and slower, which is what sells
+   them as being further away. */
+(function glimmer(){
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  for (let i = 0; i < 6; i++){
-    const h = document.createElement('span');
-    h.className = 'heart';
-    h.textContent = '❥';
-    h.style.left = (8 + Math.random() * 84) + '%';
-    h.style.animationDuration = (9 + Math.random() * 7) + 's';
-    h.style.animationDelay = (Math.random() * 10) + 's';
-    h.style.fontSize = (13 + Math.random() * 10) + 'px';
-    document.body.appendChild(h);
+  const COUNT = 14;
+  for (let i = 0; i < COUNT; i++){
+    const s = document.createElement('span');
+    s.className = 'spark';
+    const size = 4 + Math.random() * 9;              // 4 - 13px
+    const near = (size - 4) / 9;                     // 0 = distant, 1 = close
+    s.style.left = (5 + Math.random() * 90) + '%';
+    s.style.width = s.style.height = size.toFixed(1) + 'px';
+    s.style.animationDuration = (16 - near * 6 + Math.random() * 5).toFixed(1) + 's';
+    s.style.animationDelay = (-Math.random() * 18).toFixed(1) + 's';  // negative:
+    // the field starts already scattered up the page instead of every mote
+    // rising together from the bottom edge on the first tick
+    s.style.setProperty('--dx', (Math.random() * 60 - 30).toFixed(0) + 'px');
+    s.style.setProperty('--peak', (0.35 + near * 0.5).toFixed(2));
+    document.body.appendChild(s);
   }
 })();
 
