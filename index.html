@@ -463,8 +463,17 @@ html[lang="ur"] #langBtn{font-size:12px;letter-spacing:.1em}
 #hero .fl.br{bottom:-14px;right:-14px;transform:scale(-1,-1);width:130px;height:130px;opacity:.95}
 .hero-names{
   font-family:var(--serif);font-weight:500;
-  font-size:42px;letter-spacing:.14em;text-indent:.14em;
-  color:var(--maroon);line-height:1.35;margin:26px 0;position:relative;z-index:4;
+  /* These carry the full names now - nineteen characters where "Qurrat" was
+     six. A fixed 42px put "Syeda Qurrat Ul Ain" about 200px past the edge of
+     a phone, so the size follows the viewport instead, and the tracking comes
+     down with it: at .14em nineteen characters carry almost three extra
+     characters' worth of air, which is what pushed it over. */
+  font-size:clamp(23px,8.2vw,40px);
+  letter-spacing:.06em;text-indent:.06em;
+  color:var(--maroon);line-height:1.3;margin:26px 0;position:relative;z-index:4;
+  /* a safety net, not the plan: if a name still has to wrap - a longer one, or
+     the Urdu - break it into even lines instead of stranding one word */
+  text-wrap:balance;
 }
 /* ---------- the heart between the names beats ----------
    Two beats close together and then a long rest, which is what separates a
@@ -477,7 +486,9 @@ html[lang="ur"] #langBtn{font-size:12px;letter-spacing:.1em}
      proper calligraphic swash, which is why it is set larger than the old
      heart and lighter than the names it joins */
   font-family:var(--serif);font-style:italic;font-weight:400;
-  font-size:36px;line-height:1;color:var(--maroon);
+  /* scales with the names so it stays the junior partner between them - at a
+     fixed 36px it started to outweigh them once they shrank on a phone */
+  font-size:clamp(22px,6.4vw,34px);line-height:1;color:var(--maroon);
   /* .hero-names adds .14em of letter-spacing for the names. On a single
      character that space is added AFTER the glyph, pushing it off-centre by
      half a space - so both are cancelled here. */
@@ -1434,9 +1445,9 @@ html[lang="ur"] .count-num{font-family:var(--sans)}
 
     <div class="caps fade" data-t="hero.together" style="position:relative;z-index:4">Together with<br>their families</div>
     <h1 class="hero-names fade">
-      <span id="heroGroom">Zain</span>
+      <span id="heroGroom">Syed Zain Ul Abdin</span>
       <span class="hero-amp">&amp;</span>
-      <span id="heroBride">Qurrat</span>
+      <span id="heroBride">Syeda Qurrat Ul Ain</span>
     </h1>
     <p class="caps fade" data-t="hero.invite">
       We would like to invite you to<br>
@@ -1615,10 +1626,13 @@ html[lang="ur"] .count-num{font-family:var(--sans)}
    ============================================================ */
 const CONFIG = {
   /* --- the couple --- */
+  /* Short forms are still used where a full name would not fit or would read
+     as stiff - the hashtag, the og:title. The hero and the formal invitation
+     block both take the full ones. */
   bride:      "Qurrat",
   groom:      "Zain",
-  brideFull:  "Qurrat",
-  groomFull:  "Zain",
+  brideFull:  "Syeda Qurrat Ul Ain",
+  groomFull:  "Syed Zain Ul Abdin",
   hashtag:    "#ZainWedsQurrat",
 
   /* Short form is on the page. The fuller version supplied was:
@@ -1935,8 +1949,8 @@ const T = key => {
 /* Everything that renders words lives in here, so a language switch is the same
    code path as the first paint rather than a second one that can drift. */
 function applyContent(){
-  setText('heroBride',  L.bride);
-  setText('heroGroom',  L.groom);
+  setText('heroBride',  L.brideFull);
+  setText('heroGroom',  L.groomFull);
   setText('brideFull',  L.brideFull);
   setText('groomFull',  L.groomFull);
   setText('brideFamily',L.brideFamily);
